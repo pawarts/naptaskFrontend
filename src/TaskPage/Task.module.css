@@ -1,0 +1,21 @@
+.wrapper {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.add_task_button {
+    position: absolute;
+    bottom: 96px;
+    right: 26px;
+}
+
+.schedule_wrapper {
+    max-height: 696px;
+    overflow: hidden;
+}

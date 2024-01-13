@@ -1,0 +1,44 @@
+.edit_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+.time_wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.input_title_wrapper {
+    margin: 73px 0 67px 0;
+}
+
+.date_wrapper {
+    margin: 36px 0;
+}
+
+.color_group_choose {
+    display: flex;
+    justify-content: space-between;
+}
+
+.color_input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* Задати бажаний колір обрамлення та колір фону */
+    border: 2px solid #282828;
+    border-radius: 50%;
+    /* Зробити круглою */
+    width: 35px;
+    height: 35px;
+
+    border: none;
+}
+
+input[type="radio"]:checked {
+    border: 3px solid #282828;
+}
