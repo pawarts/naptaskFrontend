@@ -1,0 +1,15 @@
+.group_wrapper {
+    margin-left: 25px;
+}
+
+.group_link {
+    padding: 4px 16px;
+    border-radius: 4px;
+    border: 1px solid #000;
+    margin-right: 24px;
+}
+
+.active_group {
+    background: #1C1B1F;
+    color: #fff;
+}

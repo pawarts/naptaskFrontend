@@ -1,0 +1,45 @@
+.input_wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 273px;
+    margin-top: 33px;
+}
+
+.input:first-child {
+    margin-top: 0;
+}
+
+.enter_input {
+    border-bottom: 2px solid #9c9c9c;
+    font-size: 9px;
+}
+
+.input_title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.label_input {
+    font-size: 16px;
+    font-weight: 600;
+    transition: .3;
+}
+
+.active_label_input {
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.enter_input:focus+.label_input {
+    transition: .3s;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.enter_input:focus {
+    font-size: 16px;
+}
+
+.active_input {
+    font-size: 16px;
+}

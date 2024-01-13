@@ -1,0 +1,33 @@
+* {
+  font-family: Open Sans;
+  margin: 0;
+  padding: 0;
+  color: #1C1B1F;
+}
+
+.black {
+  border-color: #1C1B1F;
+  background: #1C1B1F;
+}
+
+.grey {
+  color: #444;
+}
+
+.white {
+  color: #ffff;
+}
+
+.wrapper {
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}

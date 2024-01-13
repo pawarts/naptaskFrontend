@@ -1,0 +1,33 @@
+.goal_wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 40px;
+    margin-top: 54px;
+}
+
+.card_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80px;
+    width: 80px;
+    border-radius: 9px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.diagram_wrapper {
+    width: 22px;
+    height: 22px;
+}
+
+.goal_statistic_wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 45px;
+}
+
+.goal_title {
+    max-width: 85px;
+}
