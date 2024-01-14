@@ -1,6 +1,7 @@
 {
   "name": "naptask",
   "version": "0.1.0",
+  "homepage": "https://naptask.onrender.com",
   "private": true,
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
