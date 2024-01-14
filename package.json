@@ -29,7 +29,7 @@
     "shell-quote": "^1.7.2",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://naptask-back.onrender.com",
+  "proxy": "naptask-back.onrender.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
