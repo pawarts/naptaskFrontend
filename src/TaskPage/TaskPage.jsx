@@ -30,7 +30,10 @@ const TaskPage = (props) => {
 
     return (
         <div className={s.wrapper}>
-            <WorkInProgress />
+            <WorkInProgress
+                warning_text='Work in progress. Application can work unstable.'
+                warningDelete={false}
+            />
             <Perfomance howManyTask={howManyTask} />
             <div className={s.schedule_wrapper}>
                 <TaskHeader change_date={change_date} />

@@ -13,6 +13,15 @@ const TaskInfo = (props) => {
     const [contextMenu, setContextMenu] = useState(false);
     const [editMenu, setEditMenu] = useState(false);
 
+    const closeContextMenu = (event) => {
+        console.log(event.target)
+        const eventTargetClassContainsChecker = event.target.parentNode.classList.contains('context_item');
+
+        if (!eventTargetClassContainsChecker && contextMenu) {
+            setContextMenu(false)
+        }
+    }
+
     const openContextMenu = () => {
         const copyContextMenu = !contextMenu;
         setContextMenu(copyContextMenu)
@@ -26,7 +35,7 @@ const TaskInfo = (props) => {
     let task_info = JSON.parse(window.localStorage.getItem("task_info"))
 
     return (
-        <div className={s.wrapper}>
+        <div className={s.wrapper} onClick={event => closeContextMenu(event)}>
             <TaskTitle task_info={task_info} openContextMenu={openContextMenu} />
 
             <ContextMenu hide={contextMenu} id={task_info.id} openEditMenu={openEditMenu} />
