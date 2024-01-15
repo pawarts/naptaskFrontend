@@ -74,7 +74,7 @@ const EditTask = (props) => {
                 body: JSON.stringify(dataSet)
             })
                 .then(response => response.json())
-                .then(result => window.location.pathname = '/task')
+                .then(() => window.location.pathname = '/task')
                 .catch(error => console.log(error))
         } else {
             console.log('Time is not valid')
@@ -84,7 +84,7 @@ const EditTask = (props) => {
 
     return (
         <div className={s.edit_wrapper} style={{
-            display: props.hide ? 'block' : 'none'
+            display: props.hide ? 'flex' : 'none'
         }}>
             <h1 className="screen_title">Edit task</h1>
 
