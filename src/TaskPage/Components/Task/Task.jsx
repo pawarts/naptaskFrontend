@@ -194,6 +194,7 @@ const Task = (props) => {
                     textOverflow: !clickCounter ? 'none' : 'ellipsis',
                     whiteSpace: !clickCounter ? 'normal' : 'nowrap',
                     overflow: !clickCounter ? 'visible' : 'hidden',
+                    maxWidth: overTaskCondition || overTaskArray.includes(props.id) ? `80px` : '177px'
                 }}>{title}</h3>
                 <div className={s.time_wrapper} style={{
                     opacity: height > 75 || (!clickCounter && height < 75) ? '1' : '0',

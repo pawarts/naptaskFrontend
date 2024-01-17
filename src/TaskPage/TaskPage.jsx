@@ -15,17 +15,37 @@ import WorkInProgress from "./WarningWorkInProgress/WorkInProgress"
 const TaskPage = (props) => {
 
     const [date, setDate] = useState(new Date());
-    const [howManyTask, setHowManyTask] = useState({
-        howManyTask: 0,
-        howManyTaskDone: 0
-    })
+    const [howManyTask, setHowManyTask] = useState(0);
+    const [howManyTaskDone, setHowManyTaskDone] = useState(0);
 
-    const changeHowManyTask = (newObject) => {
-        setHowManyTask(newObject)
+    const changeHowManyTask = (newNumber) => {
+        setHowManyTask(newNumber)
+    }
+
+    const changeNowManyTaskDone = (newNumber) => {
+        setHowManyTaskDone(newNumber)
     }
 
     const change_date = (newDate) => {
         return setDate(newDate)
+    }
+
+    const date_diagram = new Date();
+
+    const getMonth = date_diagram.getMonth();
+    const getDate = date_diagram.getDate();
+    const getYear = date_diagram.getFullYear();
+
+    const todayDate = `${getMonth}/${getDate}/${getYear}`
+
+    const doneTaskDate = JSON.parse(window.localStorage.getItem('howManyTaskDoneToday')).date
+
+
+    if (doneTaskDate !== todayDate) {
+        window.localStorage.setItem('howManyTaskDoneToday', JSON.stringify({
+            date: todayDate,
+            done: 0
+        }))
     }
 
     return (
@@ -37,7 +57,8 @@ const TaskPage = (props) => {
             <Perfomance howManyTask={howManyTask} />
             <div className={s.schedule_wrapper}>
                 <TaskHeader change_date={change_date} />
-                <Table date={date} changeHowManyTask={changeHowManyTask} />
+                <Table date={date} changeHowManyTask={changeHowManyTask}
+                    changeNowManyTaskDone={changeNowManyTaskDone} />
             </div>
             <Navigation />
 

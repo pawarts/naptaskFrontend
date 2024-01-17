@@ -98,10 +98,9 @@ const CreateTask = (props) => {
                     window.location.pathname = '/task'
                     //setViewWarning(false)
                 })
-                .catch(error => console.log(error))
+                .catch(error => console.error(error))
         } else {
             console.log('Somthing wrong')
-            console.log(actual_time)
 
 
             setViewWarning(true);

@@ -29,7 +29,7 @@ const ContextMenu = (props) => {
             .then(() => {
                 window.location.pathname = '/task'
             })
-            .catch(error => console.log(error))
+            .catch(error => console.error(error))
     }
 
     const openChooseDeleteTask = () => { setOpenChoose(true) }

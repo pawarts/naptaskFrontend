@@ -8,8 +8,6 @@ const WarningWindow = (props) => {
     const [view, setView] = useState(props.view_warning);
     const warning_text = props.warning_text;
 
-    console.log(view)
-
     useEffect(() => {
         setView(props.view_warning);
     }, [props.view_warning]);

@@ -11,6 +11,7 @@ const Table = (props) => {
     const changeHowManyTask = props.changeHowManyTask
 
     const [data, setData] = useState([]);
+    const [taskNumberValue, setTaskNumberValue] = useState({})
     const [rerender, setRerender] = useState(true);
     const [loaded, setLoaded] = useState(false);
 
@@ -38,18 +39,19 @@ const Table = (props) => {
             .then(result => {
 
                 setLoaded(true)
+                const howManyTaskToday = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}`).length;
+                const nowTaskNumber = window.localStorage.getItem('howManyTaskToday');
+
+                if (howManyTaskToday >= nowTaskNumber) {
+                    window.localStorage.setItem('howManyTaskToday', howManyTaskToday);
+                    changeHowManyTask(howManyTaskToday)
+                } else {
+                    changeHowManyTask(Number(nowTaskNumber) + 1)
+                }
+
+
                 setData(result.tasks);
 
-                const howManyTaskToday = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}`).length;
-                const howManyTaskTodayDone = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}` && item.missed).length;
-
-                changeHowManyTask({
-                    howManyTask: howManyTaskToday,
-                    howManyTaskDone: howManyTaskTodayDone
-                })
-
-                window.localStorage.setItem('howManyTaskToday', howManyTaskToday)
-                window.localStorage.setItem('howManyTaskDoneToday', howManyTaskTodayDone)
             })
             .catch(error => console.error('Error fetching data:', error));
 
@@ -85,7 +87,8 @@ const Table = (props) => {
                 overTaskId: index < data.length - 1 && element.date === array[index + 1].date ? array[index + 1]._id : "",
                 timeStart: index < data.length - 1 && element.date === array[index + 1].date ? array[index + 1].startTime : "",
                 prev_index: index + 1
-            }} rerender={rerender} setRerender={setRerender} />
+            }} rerender={rerender} setRerender={setRerender}
+            changeNowManyTaskDone={props.changeNowManyTaskDone} />
     )) : (<p>Loading</p>)
 
 

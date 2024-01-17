@@ -12,8 +12,6 @@ const Login = (props) => {
     const [loginInput, setLoginInput] = useState('')
     const [passwordInput, setPasswordInput] = useState('')
 
-    console.log(window.localStorage.getItem("user_id"))
-
     const user_id = window.localStorage.getItem("user_id");
     const logged_checker = user_id === 'empty string' || user_id === null ? false : true
     if (logged_checker) {
@@ -33,8 +31,6 @@ const Login = (props) => {
 
         const queryParam = new URLSearchParams(dataSet).toString()
 
-        console.log(queryParam)
-
         const url = `https://naptask-back.onrender.com/login`
 
         fetch(url, {
@@ -53,7 +49,7 @@ const Login = (props) => {
                     localStorage.setItem("user_id", "empty string");
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => console.error(error))
 
     }
 
