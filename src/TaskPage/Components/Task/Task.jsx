@@ -104,7 +104,7 @@ const Task = (props) => {
         current_day = '0' + current_day;
     }
 
-    const date_checker = date === `${current_year}-${current_month}-${current_day}`;
+    const date_checker = date === `${current_year}-${current_month}-${current_day}` && !props.done;
 
     if (date_checker) {
         hide = false;

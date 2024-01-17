@@ -19,6 +19,7 @@ const TaskPage = (props) => {
     const [howManyTaskDone, setHowManyTaskDone] = useState(0);
 
     const changeHowManyTask = (newNumber) => {
+        console.log(newNumber)
         setHowManyTask(newNumber)
     }
 
@@ -28,24 +29,6 @@ const TaskPage = (props) => {
 
     const change_date = (newDate) => {
         return setDate(newDate)
-    }
-
-    const date_diagram = new Date();
-
-    const getMonth = date_diagram.getMonth();
-    const getDate = date_diagram.getDate();
-    const getYear = date_diagram.getFullYear();
-
-    const todayDate = `${getMonth}/${getDate}/${getYear}`
-
-    const doneTaskDate = JSON.parse(window.localStorage.getItem('howManyTaskDoneToday')).date
-
-
-    if (doneTaskDate !== todayDate) {
-        window.localStorage.setItem('howManyTaskDoneToday', JSON.stringify({
-            date: todayDate,
-            done: 0
-        }))
     }
 
     return (

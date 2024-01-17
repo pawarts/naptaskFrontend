@@ -12,7 +12,7 @@ const ContextMenu = (props) => {
 
 
     const hide = props.hide;
-    const id = props.id;
+    const id = [props.id];
 
     const [openChoose, setOpenChoose] = useState(false);
 

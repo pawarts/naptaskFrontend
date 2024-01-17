@@ -19,6 +19,7 @@ const CreateTask = (props) => {
     const [colorValue, setColorValue] = useState('');
 
     const [viewWarning, setViewWarning] = useState(false);
+    const [creatingTask, setCreatingTask] = useState(false)
 
     const currentTime = new Date();
     let currentMonth = currentTime.getMonth() + 1;
@@ -86,6 +87,7 @@ const CreateTask = (props) => {
                 user_id: localStorage.getItem('user_id')
             }
 
+            setCreatingTask(true)
             fetch('https://naptask-back.onrender.com/task/add', {
                 method: 'POST',
                 headers: {
@@ -166,7 +168,7 @@ const CreateTask = (props) => {
                     <ChooseColor color="#d5bdaf" setColorValue={changeInput} />
                 </div>
 
-                <SubmitButton button_text='Create Task' click={createTask} />
+                <SubmitButton button_text={creatingTask ? 'Creating...' : 'Create Task'} click={createTask} />
             </div>
 
             <div></div>

@@ -39,14 +39,21 @@ const Table = (props) => {
             .then(result => {
 
                 setLoaded(true)
-                const howManyTaskToday = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}`).length;
-                const nowTaskNumber = window.localStorage.getItem('howManyTaskToday');
+                const howManyTaskToday = JSON.stringify({
+                    date: `${currentYear}-${currentMonth}-${currentDay}`,
+                    number: result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}`).length,
+                });
+                const howManyTaskDoneToday = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}` && item.done).length;
 
-                if (howManyTaskToday >= nowTaskNumber) {
+                window.localStorage.setItem("howManyTaskDoneToday", howManyTaskDoneToday)
+                const nowTaskNumber = JSON.parse(window.localStorage.getItem('howManyTaskToday'));
+                console.log(JSON.parse(howManyTaskToday).number)
+
+                if (JSON.parse(howManyTaskToday).number >= nowTaskNumber.number || nowTaskNumber.date !== `${currentYear}-${currentMonth}-${currentDay}`) {
                     window.localStorage.setItem('howManyTaskToday', howManyTaskToday);
-                    changeHowManyTask(howManyTaskToday)
+                    changeHowManyTask(JSON.parse(howManyTaskToday).number)
                 } else {
-                    changeHowManyTask(Number(nowTaskNumber) + 1)
+                    changeHowManyTask(JSON.parse(howManyTaskToday).number + 1)
                 }
 
 
@@ -56,6 +63,25 @@ const Table = (props) => {
             .catch(error => console.error('Error fetching data:', error));
 
     }, [rerender]);
+
+    if (data.length > 0) {
+        const taskForDelete = data
+            .filter(item => item.date < `${currentYear}-${currentMonth}-${currentDay}` && item.done)
+            .map(item => item._id)
+
+        if (taskForDelete.length > 0) {
+            const urlDelete = `https://naptask-back.onrender.com/task/delete/${taskForDelete}`
+            fetch(urlDelete, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id: window.localStorage.getItem('user_id') })
+            })
+                .then(response => response.text(''))
+                .catch(error => console.error(error))
+        }
+    }
 
     data.sort((a, b) => {
         const dateA = a.date;
@@ -84,12 +110,12 @@ const Table = (props) => {
             timeStart={element.startTime} timeEnd={element.endTime}
             date={element.date} currentDate={props.date} color={element.color}
             id={element._id} prev_time={{
-                overTaskId: index < data.length - 1 && element.date === array[index + 1].date ? array[index + 1]._id : "",
-                timeStart: index < data.length - 1 && element.date === array[index + 1].date ? array[index + 1].startTime : "",
+                overTaskId: index < data.length - 1 && element.date === array[index + 1].date && element.done ? array[index + 1]._id : "",
+                timeStart: index < data.length - 1 && element.date === array[index + 1].date && element.done ? array[index + 1].startTime : "",
                 prev_index: index + 1
-            }} rerender={rerender} setRerender={setRerender}
+            }} rerender={rerender} setRerender={setRerender} done={element.done}
             changeNowManyTaskDone={props.changeNowManyTaskDone} />
-    )) : (<p>Loading</p>)
+    )) : (<p>Loading...</p>)
 
 
     const scrollToHourNow = (element) => {

@@ -43,10 +43,10 @@ const TaskInfo = (props) => {
         }
 
         const id = task_info.id;
-        const URL = `https://naptask-back.onrender.com/task/delete/${id}`
+        const URL = `https://naptask-back.onrender.com/task/edit/${id}`
 
         fetch(URL, {
-            method: 'DELETE',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -54,20 +54,7 @@ const TaskInfo = (props) => {
         })
             .then(response => response.text())
             .then(() => {
-                const date = new Date();
 
-                const getMonth = date.getMonth();
-                const getDate = date.getDate();
-                const getYear = date.getFullYear();
-
-                const todayDate = `${getMonth}/${getDate}/${getYear}`
-
-                const howManyTasksDone = JSON.parse(window.localStorage.getItem("howManyTaskDoneToday"));
-
-                window.localStorage.setItem("howManyTaskDoneToday", JSON.stringify({
-                    date: todayDate,
-                    done: howManyTasksDone.done + 1
-                }))
 
                 window.location.pathname = '/task'
             })

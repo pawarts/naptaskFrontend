@@ -19,7 +19,9 @@ const PerfomanceDiagram = (props) => {
 
 
     const howManyTask = props.howManyTask
-    const doneTaskNumber = JSON.parse(window.localStorage.getItem("howManyTaskDoneToday")).done
+    const doneTaskNumber = window.localStorage.getItem("howManyTaskDoneToday")
+
+    //console.log(howManyTask)
 
 
     const done = doneTaskNumber / howManyTask;
