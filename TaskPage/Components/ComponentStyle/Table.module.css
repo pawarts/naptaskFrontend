@@ -1,0 +1,12 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    width: calc(100vw - 20px);
+    padding-left: 20px;
+    margin-bottom: 75px;
+    height: 467px;
+    overflow-x: hidden;
+    scroll-snap-type: mandatory;
+    scroll-snap-align: start;
+}
