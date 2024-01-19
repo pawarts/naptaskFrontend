@@ -110,8 +110,8 @@ const Table = (props) => {
             timeStart={element.startTime} timeEnd={element.endTime}
             date={element.date} currentDate={props.date} color={element.color}
             id={element._id} prev_time={{
-                overTaskId: index < data.length - 1 && element.date === array[index + 1].date && element.done ? array[index + 1]._id : "",
-                timeStart: index < data.length - 1 && element.date === array[index + 1].date && element.done ? array[index + 1].startTime : "",
+                overTaskId: index < data.length - 1 && element.date === array[index + 1].date && !element.done ? array[index + 1]._id : "",
+                timeStart: index < data.length - 1 && element.date === array[index + 1].date && !element.done ? array[index + 1].startTime : "",
                 prev_index: index + 1
             }} rerender={rerender} setRerender={setRerender} done={element.done}
             changeNowManyTaskDone={props.changeNowManyTaskDone} />
