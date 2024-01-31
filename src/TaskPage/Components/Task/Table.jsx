@@ -38,7 +38,8 @@ const Table = (props) => {
             .then(response => response.json())
             .then(result => {
 
-                setLoaded(true)
+
+ setData(result.tasks);                setLoaded(true)
                 const howManyTaskToday = JSON.stringify({
                     date: `${currentYear}-${currentMonth}-${currentDay}`,
                     number: result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}`).length,
@@ -57,7 +58,7 @@ const Table = (props) => {
                 }
 
 
-                setData(result.tasks);
+               
 
             })
             .catch(error => console.error('Error fetching data:', error));
