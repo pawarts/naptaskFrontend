@@ -54,7 +54,7 @@ const Table = (props) => {
             })
             .catch(error => console.error('Error fetching data:', error));
 
-    }, [rerender, changeHowManyTask, currentDay, currentMonth, currentYear, loaded]);
+    }, [rerender]);
 
     data.sort((a, b) => {
         const dateA = a.date;
