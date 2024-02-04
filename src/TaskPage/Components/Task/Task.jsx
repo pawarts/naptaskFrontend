@@ -104,7 +104,7 @@ const Task = (props) => {
         current_day = '0' + current_day;
     }
 
-    const date_checker = date === `${current_year}-${current_month}-${current_day}` && !props.done;
+    const date_checker = date === `${current_year}-${current_month}-${current_day}`;
 
     if (date_checker) {
         hide = false;
@@ -165,7 +165,8 @@ const Task = (props) => {
 
 
         const id = props.id;
-        const URL = `https://naptask-back.onrender.com/task/edit/${id}`
+        const domain = process.env.DOMAIN_NAME || 'http://localhost:10000'
+        const URL = `${domain}/task/edit/${id}`
 
         fetch(URL, {
             method: 'PUT',
@@ -194,7 +195,6 @@ const Task = (props) => {
                     textOverflow: !clickCounter ? 'none' : 'ellipsis',
                     whiteSpace: !clickCounter ? 'normal' : 'nowrap',
                     overflow: !clickCounter ? 'visible' : 'hidden',
-                    maxWidth: overTaskCondition || overTaskArray.includes(props.id) ? `80px` : '177px'
                 }}>{title}</h3>
                 <div className={s.time_wrapper} style={{
                     opacity: height > 75 || (!clickCounter && height < 75) ? '1' : '0',

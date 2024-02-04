@@ -9,11 +9,11 @@ import { useState, useEffect } from "react"
 const Table = (props) => {
 
     const changeHowManyTask = props.changeHowManyTask
+    const loaded = props.loaded
 
     const [data, setData] = useState([]);
-    const [taskNumberValue, setTaskNumberValue] = useState({})
     const [rerender, setRerender] = useState(true);
-    const [loaded, setLoaded] = useState(false);
+    //const [loaded, setLoaded] = useState(false);
 
     const currentTime = new Date();
     let currentMonth = currentTime.getMonth() + 1;
@@ -31,58 +31,30 @@ const Table = (props) => {
 
     useEffect(() => {
         // Ваш код
-
-        fetch(`https://naptask-back.onrender.com/task?id=${localStorage.getItem('user_id')}`, {
+        const domain = process.env.DOMAIN_NAME || 'http://localhost:10000'
+        fetch(`${domain}/task?id=${localStorage.getItem('user_id')}`, {
             method: 'GET'
         })
             .then(response => response.json())
             .then(result => {
+                setData(result.tasks);
 
+                const howManyTaskToday = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}`).length;
+                const howManyTaskTodayDone = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}` && item.missed).length;
 
- setData(result.tasks);                setLoaded(true)
-                const howManyTaskToday = JSON.stringify({
-                    date: `${currentYear}-${currentMonth}-${currentDay}`,
-                    number: result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}`).length,
-                });
-                const howManyTaskDoneToday = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}` && item.done).length;
+                changeHowManyTask({
+                    howManyTask: howManyTaskToday,
+                    howManyTaskDone: howManyTaskTodayDone
+                })
 
-                window.localStorage.setItem("howManyTaskDoneToday", howManyTaskDoneToday)
-                const nowTaskNumber = JSON.parse(window.localStorage.getItem('howManyTaskToday'));
-                console.log(JSON.parse(howManyTaskToday).number)
+                window.localStorage.setItem('howManyTaskToday', howManyTaskToday)
+                window.localStorage.setItem('howManyTaskDoneToday', howManyTaskTodayDone)
 
-                if (JSON.parse(howManyTaskToday).number >= nowTaskNumber.number || nowTaskNumber.date !== `${currentYear}-${currentMonth}-${currentDay}`) {
-                    window.localStorage.setItem('howManyTaskToday', howManyTaskToday);
-                    changeHowManyTask(JSON.parse(howManyTaskToday).number)
-                } else {
-                    changeHowManyTask(JSON.parse(howManyTaskToday).number + 1)
-                }
-
-
-               
-
+                loaded(true)
             })
             .catch(error => console.error('Error fetching data:', error));
 
-    }, [rerender]);
-
-    if (data.length > 0) {
-        const taskForDelete = data
-            .filter(item => item.date < `${currentYear}-${currentMonth}-${currentDay}` && item.done)
-            .map(item => item._id)
-
-        if (taskForDelete.length > 0) {
-            const urlDelete = `https://naptask-back.onrender.com/task/delete/${taskForDelete}`
-            fetch(urlDelete, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user_id: window.localStorage.getItem('user_id') })
-            })
-                .then(response => response.text(''))
-                .catch(error => console.error(error))
-        }
-    }
+    }, [rerender, changeHowManyTask, currentDay, currentMonth, currentYear, loaded]);
 
     data.sort((a, b) => {
         const dateA = a.date;
@@ -106,17 +78,16 @@ const Table = (props) => {
         }
     })
 
-    const task = loaded ? data.map((element, index, array) => (
+    const task = data.map((element, index, array) => (
         <Task key={index} title={element.title}
             timeStart={element.startTime} timeEnd={element.endTime}
             date={element.date} currentDate={props.date} color={element.color}
             id={element._id} prev_time={{
-                overTaskId: index < data.length - 1 && element.date === array[index + 1].date && !element.done ? array[index + 1]._id : "",
-                timeStart: index < data.length - 1 && element.date === array[index + 1].date && !element.done ? array[index + 1].startTime : "",
+                overTaskId: index < data.length - 1 && element.date === array[index + 1].date ? array[index + 1]._id : "",
+                timeStart: index < data.length - 1 && element.date === array[index + 1].date ? array[index + 1].startTime : "",
                 prev_index: index + 1
-            }} rerender={rerender} setRerender={setRerender} done={element.done}
-            changeNowManyTaskDone={props.changeNowManyTaskDone} />
-    )) : (<p>Loading...</p>)
+            }} rerender={rerender} setRerender={setRerender} />
+    ))
 
 
     const scrollToHourNow = (element) => {

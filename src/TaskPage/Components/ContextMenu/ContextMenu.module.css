@@ -25,29 +25,3 @@
 .context_icon {
     margin-right: 20px;
 }
-
-.delete_choose_wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.delete_choose_wrapper .context_icon {
-    margin-top: 30px;
-    margin-right: 0;
-}
-
-.delete_choose_wrapper .context_item {
-    margin-bottom: 0;
-    margin-right: 70px;
-}
-
-.delete_button {
-    padding: 1px 8px;
-    border-radius: 3px;
-    background: #1C1B1F;
-}
-
-.task_font {
-    color: #ffff;
-}

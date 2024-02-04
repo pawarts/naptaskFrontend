@@ -1,12 +1,6 @@
-import { useState } from 'react'
 import s from './CreateTaskStyle.module.css'
 
 const ChooseColor = (props) => {
-
-    const checked = props.checked;
-    const setChecked = props.setChecked;
-
-    const [checker, setChecker] = useState(false);
 
 
     return (

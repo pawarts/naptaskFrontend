@@ -64,7 +64,8 @@ const EditTask = (props) => {
 
 
             const id = props.id;
-            const URL = `https://naptask-back.onrender.com/task/edit/${id}`
+            const domain = process.env.DOMAIN_NAME || 'http://localhost:10000'
+            const URL = `${domain}/task/edit/${id}`
 
             fetch(URL, {
                 method: 'PUT',
@@ -74,7 +75,7 @@ const EditTask = (props) => {
                 body: JSON.stringify(dataSet)
             })
                 .then(response => response.json())
-                .then(() => window.location.pathname = '/task')
+                .then(result => window.location.pathname = '/task')
                 .catch(error => console.log(error))
         } else {
             console.log('Time is not valid')
@@ -84,7 +85,7 @@ const EditTask = (props) => {
 
     return (
         <div className={s.edit_wrapper} style={{
-            display: props.hide ? 'flex' : 'none'
+            display: props.hide ? 'block' : 'none'
         }}>
             <h1 className="screen_title">Edit task</h1>
 

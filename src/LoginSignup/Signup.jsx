@@ -25,7 +25,12 @@ const Signup = (props) => {
 
         const queryParam = new URLSearchParams(dataSet).toString()
 
-        const url = `https://naptask-back.onrender.com/signup`
+        console.log(queryParam)
+
+        const domain = process.env.DOMAIN_NAME || 'http://localhost:10000'
+        const url = `${domain}/signup`
+
+        console.log(url)
 
         fetch(url, {
             method: 'POST',
@@ -38,7 +43,7 @@ const Signup = (props) => {
             .then((result) => {
                 window.location.pathname = '/login'
             })
-            .catch(error => console.error(error))
+            .catch(error => console.log(error))
 
     }
 

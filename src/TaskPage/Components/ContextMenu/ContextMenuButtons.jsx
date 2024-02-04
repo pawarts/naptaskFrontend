@@ -8,12 +8,9 @@ const ContextMenuButton = (props) => {
 
     return (
 
-        <div className={`context_item
-         ${props.delete_choose_button ? props.delete_choose_button : ''} ${s.context_item}
-         ${props.deleteButtonClass}`}
-            onClick={action} style={props.style}>
+        <div className={s.context_item} onClick={action}>
             <img className={s.context_icon} src={link} alt="" />
-            <p className={`${props.task_font} ${'task_font'}`}>{text}</p>
+            <p className='task_font'>{text}</p>
         </div>
     )
 }

@@ -19,12 +19,10 @@ const PerfomanceDiagram = (props) => {
 
 
     const howManyTask = props.howManyTask
-    const doneTaskNumber = window.localStorage.getItem("howManyTaskDoneToday")
+    const allTaskNumber = howManyTask.howManyTask
+    const doneTaskNumber = howManyTask.howManyTaskDone
 
-    //console.log(howManyTask)
-
-
-    const done = doneTaskNumber / howManyTask;
+    const done = doneTaskNumber / allTaskNumber;
     const undone = done > 0 ? 1 - done : 0;
 
     const data = {
@@ -51,7 +49,7 @@ const PerfomanceDiagram = (props) => {
             <div className={` ${s.diagram_item}`}>
                 <Pie data={data} options={options}></Pie>
             </div>
-            <p className='button_text'>{doneTaskNumber}/{howManyTask}</p>
+            <p className='button_text'>{doneTaskNumber}/{allTaskNumber}</p>
         </div>
     );
 };

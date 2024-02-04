@@ -6,12 +6,13 @@ import Footer from './LoginSignupComponent/Footer'
 import s from './LoginSignup.module.css'
 import { useState } from 'react'
 
-//New comment
 
 const Login = (props) => {
 
     const [loginInput, setLoginInput] = useState('')
     const [passwordInput, setPasswordInput] = useState('')
+
+    console.log(window.localStorage.getItem("user_id"))
 
     const user_id = window.localStorage.getItem("user_id");
     const logged_checker = user_id === 'empty string' || user_id === null ? false : true
@@ -32,7 +33,10 @@ const Login = (props) => {
 
         const queryParam = new URLSearchParams(dataSet).toString()
 
-        const url = `https://naptask-back.onrender.com/login`
+        console.log(queryParam)
+
+        const domain = process.env.DOMAIN_NAME || 'http://localhost:10000'
+        const url = `${domain}/login`
 
         fetch(url, {
             method: 'POST',
@@ -50,7 +54,7 @@ const Login = (props) => {
                     localStorage.setItem("user_id", "empty string");
                 }
             })
-            .catch(error => console.error(error))
+            .catch(error => console.log(error))
 
     }
 

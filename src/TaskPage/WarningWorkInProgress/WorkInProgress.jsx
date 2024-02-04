@@ -7,9 +7,8 @@ import { useState } from 'react'
 const WorkInProgress = (props) => {
 
     const show_block = window.sessionStorage.getItem('show_block')
-    const warningDelete = props.warningDelete
 
-    const [showWarningBlock, setShowWarningBlock] = useState(true) //show_block
+    const [showWarningBlock, setShowWarningBlock] = useState(show_block)
 
     if (showWarningBlock === null) {
         setShowWarningBlock(true)
@@ -22,7 +21,7 @@ const WorkInProgress = (props) => {
             setShowWarningBlock(false)
         }
 
-
+        console.log(showWarningBlock)
     }
 
     return (
@@ -33,15 +32,10 @@ const WorkInProgress = (props) => {
                 </div>
                 <div className={s.warning_content}>
                     <h3 className='button_text'>Warning!</h3>
-                    <h4 className={`${s.task_font} task_font`}>{props.warning_text}</h4>
+                    <h4 className={`${s.task_font} task_font`}>Work in progress. Application can work unstable.</h4>
 
-                    <div className={`${s.button_wrapper}`} style={{ justifyContent: warningDelete ? 'space-between' : 'center' }}>
-                        <p className={`${s.warning_button_cancel} ${s.warning_button_close}`}
-                            onClick={closeWarningBlock}
-                            style={{ display: warningDelete ? 'block' : 'none' }}>Close</p>
-                        <p className={`${s.warning_button_close} ${s.warning_red}`}
-                            onClick={closeWarningBlock}>{warningDelete ? 'Delete' : 'Close'}</p>
-                    </div>
+                    <p className={`${s.warning_button_close} ${s.warning_red}`}
+                        onClick={closeWarningBlock}>Close</p>
                 </div>
             </div>
         </div>
