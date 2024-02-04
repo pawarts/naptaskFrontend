@@ -11,8 +11,6 @@ const TaskPage = (props) => {
         setLoaded(status)
     }
 
-    console.log(loaded)
-
     return (
         <div>
             <LoadedPage loaded={loading} />
