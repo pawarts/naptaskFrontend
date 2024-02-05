@@ -29,10 +29,10 @@ const LoadedPage = (props) => {
     const loaded = props.loaded
 
     return (
-        <div className={s.wrapper}>
+        <div className={s.wrapper} >
             <WorkInProgress />
             <Perfomance howManyTask={howManyTask} />
-            <div className={s.schedule_wrapper}>
+            <div className={s.schedule_wrapper} >
                 <TaskHeader change_date={change_date} />
                 <Table date={date} changeHowManyTask={changeHowManyTask} loaded={loaded} />
             </div>
@@ -41,7 +41,7 @@ const LoadedPage = (props) => {
             <Link to='/create_task' className={s.add_task_button}>
                 <img src={add_task_button} alt="" />
             </Link>
-        </div>
+        </div >
     )
 }
 

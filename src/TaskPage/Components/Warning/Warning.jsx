@@ -15,7 +15,7 @@ const WarningWindow = (props) => {
     }, [props.view_warning]);
 
     return (
-        <div className={s.warning_wrapper} style={{ top: view ? '0px' : '-100%' }}>
+        <div className={s.warning_wrapper} style={{ top: view ? '0px' : '-100%' }} onLoad={(event) => console.log(event)}>
             <p className={`button_text ${s.warning_text}`}>{warning_text}</p>
         </div>
     )

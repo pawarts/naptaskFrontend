@@ -13,7 +13,6 @@ const Table = (props) => {
 
     const [data, setData] = useState([]);
     const [rerender, setRerender] = useState(true);
-    //const [loaded, setLoaded] = useState(false);
 
     const currentTime = new Date();
     let currentMonth = currentTime.getMonth() + 1;
@@ -31,7 +30,7 @@ const Table = (props) => {
 
     useEffect(() => {
         // Ваш код
-        const domain = process.env.DOMAIN_NAME || 'http://localhost:10000'
+        const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
         fetch(`${domain}/task?id=${localStorage.getItem('user_id')}`, {
             method: 'GET'
         })
@@ -78,13 +77,17 @@ const Table = (props) => {
         }
     })
 
+    const prevTimeChecker = (index, element, array, data) => {
+        return index < data.length - 1 && element.date === array[index + 1].date
+    }
+
     const task = data.map((element, index, array) => (
         <Task key={index} title={element.title}
             timeStart={element.startTime} timeEnd={element.endTime}
             date={element.date} currentDate={props.date} color={element.color}
             id={element._id} prev_time={{
-                overTaskId: index < data.length - 1 && element.date === array[index + 1].date ? array[index + 1]._id : "",
-                timeStart: index < data.length - 1 && element.date === array[index + 1].date ? array[index + 1].startTime : "",
+                overTaskId: prevTimeChecker(index, element, array, data) ? array[index + 1]._id : "",
+                timeStart: prevTimeChecker(index, element, array, data) ? array[index + 1].startTime : "",
                 prev_index: index + 1
             }} rerender={rerender} setRerender={setRerender} />
     ))
@@ -97,8 +100,6 @@ const Table = (props) => {
 
         element.scrollTo({ top: hourNow * time_margin })
     }
-
-
 
     return (
         <div className={s.wrapper} onLoad={(event) => scrollToHourNow(event.currentTarget)}>

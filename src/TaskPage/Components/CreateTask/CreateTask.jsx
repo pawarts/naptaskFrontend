@@ -88,7 +88,7 @@ const CreateTask = (props) => {
                 user_id: localStorage.getItem('user_id')
             }
 
-            const domain = process.env.DOMAIN_NAME || 'http://localhost:10000'
+            const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
             fetch(`${domain}/task/add`, {
                 method: 'POST',
                 headers: {
