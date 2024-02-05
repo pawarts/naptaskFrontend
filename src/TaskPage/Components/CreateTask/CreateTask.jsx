@@ -69,7 +69,7 @@ const CreateTask = (props) => {
         }
     }
 
-    console.log(process.env.DOMAIN_NAME)
+    console.log(process.env)
 
     const createTask = (event) => {
         event.preventDefault();
