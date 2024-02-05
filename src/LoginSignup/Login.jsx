@@ -35,7 +35,7 @@ const Login = (props) => {
 
         console.log(queryParam)
 
-        const domain = process.env.DOMAIN_NAME || 'http://localhost:10000'
+        const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
         const url = `${domain}/login`
 
         fetch(url, {
