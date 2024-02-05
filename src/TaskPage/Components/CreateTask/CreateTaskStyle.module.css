@@ -63,4 +63,5 @@ input[type="time"],
 input[type="date"] {
     border: none;
     background: transparent;
+    border: 2px solid #9c9c9c;
 }
