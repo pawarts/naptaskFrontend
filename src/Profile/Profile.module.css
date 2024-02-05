@@ -1,0 +1,12 @@
+.wrapper {
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.link {
+    font-size: 20px;
+    margin: 20px;
+}
