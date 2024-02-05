@@ -69,7 +69,11 @@ const TaskInfo = (props) => {
 
             <EditTask hide={editMenu} id={task_info.id} />
 
-            <SubmitButton button_text='Mark as done' click={doneTaskAction} />
+            <div className={s.done_wrapper} style={{
+                display: !editMenu ? 'inline-block' : 'none'
+            }}>
+                <SubmitButton button_text='Mark as done' click={doneTaskAction} />
+            </div>
         </div>
     )
 }
