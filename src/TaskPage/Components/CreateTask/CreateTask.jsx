@@ -69,7 +69,7 @@ const CreateTask = (props) => {
         }
     }
 
-    console.log(process.env)
+    console.log(import.meta.env)
 
     const createTask = (event) => {
         event.preventDefault();
