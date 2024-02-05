@@ -87,6 +87,7 @@ const CreateTask = (props) => {
             }
 
             const domain = process.env.DOMAIN_NAME || 'http://localhost:10000'
+            console.log(process.env.DOMAIN_NAME)
             fetch(`${domain}/task/add`, {
                 method: 'POST',
                 headers: {
