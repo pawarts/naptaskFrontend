@@ -79,7 +79,7 @@ const Signup = (props) => {
                     <Input input_name="Email" value={emailInput}
                         changeInput={changeInput} />
                     <Input input_name="Password" value={passwordInput}
-                        changeInput={changeInput} />
+                        changeInput={changeInput} type="password" />
                 </div>
                 <SubmitButton button_text="Sign Up" click={setUserProfile} />
             </form>
