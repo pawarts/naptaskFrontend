@@ -59,7 +59,7 @@ const EditTask = (props) => {
                 startTime: timeStart ? timeStart : task_info.startTime,
                 endTime: timeEnd ? timeEnd : task_info.endTime,
                 date: dateValue ? dateValue : task_info.date,
-                color: colorValue ? `#${colorValue}` : task_info.color,
+                color: colorValue ? colorValue : task_info.color,
                 user_id: localStorage.getItem('user_id')
             }
 

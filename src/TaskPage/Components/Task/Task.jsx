@@ -163,6 +163,7 @@ const Task = (props) => {
             .then(response => response.json())
             .catch(error => console.log(error))
     }
+
     return (
         <div className={s.task_wrapper} style={{
             top: `${top}px`,
@@ -171,7 +172,7 @@ const Task = (props) => {
             height: short_task ? '50px' : `${height}px`,
             width: width,
             zIndex: !clickCounter ? 2 : 1,
-            backgroundColor: `${color}`,
+            backgroundColor: `#${color}`,
         }}
 
             onClick={(event) => viewTask(event)}>

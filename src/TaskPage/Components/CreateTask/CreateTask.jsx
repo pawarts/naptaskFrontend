@@ -161,11 +161,11 @@ const CreateTask = (props) => {
                 </div>
 
                 <div className={s.color_group_choose}>
-                    <ChooseColor color_number={0} setColorValue={changeInput} />
-                    <ChooseColor color_number={1} setColorValue={changeInput} />
-                    <ChooseColor color_number={2} setColorValue={changeInput} />
-                    <ChooseColor color_number={3} setColorValue={changeInput} />
-                    <ChooseColor color_number={4} setColorValue={changeInput} />
+                    <ChooseColor input_name="Color" color_number={0} setColorValue={changeInput} />
+                    <ChooseColor input_name="Color" color_number={1} setColorValue={changeInput} />
+                    <ChooseColor input_name="Color" color_number={2} setColorValue={changeInput} />
+                    <ChooseColor input_name="Color" color_number={3} setColorValue={changeInput} />
+                    <ChooseColor input_name="Color" color_number={4} setColorValue={changeInput} />
                 </div>
 
                 <SubmitButton button_text='Create Task' click={createTask} />
