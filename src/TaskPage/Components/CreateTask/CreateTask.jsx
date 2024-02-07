@@ -144,7 +144,7 @@ const CreateTask = (props) => {
 
                 <div className={s.input_title_wrapper}>
                     <Input input_name='Title' value={titleValue}
-                        changeInput={changeInput} />
+                        changeInput={changeInput} maxLength={50} />
                 </div>
 
                 <div className={s.time_wrapper}>
@@ -161,11 +161,11 @@ const CreateTask = (props) => {
                 </div>
 
                 <div className={s.color_group_choose}>
-                    <ChooseColor color="#edede9" setColorValue={changeInput} />
-                    <ChooseColor color="#d6ccc2" setColorValue={changeInput} />
-                    <ChooseColor color="#f5ebe0" setColorValue={changeInput} />
-                    <ChooseColor color="#e3d5ca" setColorValue={changeInput} />
-                    <ChooseColor color="#d5bdaf" setColorValue={changeInput} />
+                    <ChooseColor color_number={0} setColorValue={changeInput} />
+                    <ChooseColor color_number={1} setColorValue={changeInput} />
+                    <ChooseColor color_number={2} setColorValue={changeInput} />
+                    <ChooseColor color_number={3} setColorValue={changeInput} />
+                    <ChooseColor color_number={4} setColorValue={changeInput} />
                 </div>
 
                 <SubmitButton button_text='Create Task' click={createTask} />

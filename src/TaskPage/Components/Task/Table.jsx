@@ -39,7 +39,7 @@ const Table = (props) => {
                 setData(result.tasks);
 
                 const howManyTaskToday = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}`).length;
-                const howManyTaskTodayDone = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}` && item.missed).length;
+                const howManyTaskTodayDone = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}` && item.done).length;
 
                 changeHowManyTask({
                     howManyTask: howManyTaskToday,
@@ -56,40 +56,27 @@ const Table = (props) => {
     }, [rerender]);
 
     data.sort((a, b) => {
-        const dateA = a.date;
-        const dateB = b.date;
+        const timeA = `${a.startTime}`;
+        const timeB = `${b.startTime}`;
 
-        if (dateA < dateB) {
+        if (timeA < timeB) {
             return -1
-        } else if (dateA > dateB) {
+        } else if (timeA > timeB) {
             return 1
         } else {
-            const timeA = `${a.startTime}`;
-            const timeB = `${b.startTime}`;
-
-            if (timeA < timeB) {
-                return -1
-            } else if (timeA > timeB) {
-                return 1
-            } else {
-                return 0
-            }
+            return 0
         }
     })
 
     const prevTimeChecker = (index, element, array, data) => {
-        return index < data.length - 1 && element.date === array[index + 1].date
+        return index < data.length - 1 && element.date === array[index + 1].date && !array[index + 1].done
     }
-
     const task = data.map((element, index, array) => (
-        <Task key={index} title={element.title}
-            timeStart={element.startTime} timeEnd={element.endTime}
-            date={element.date} currentDate={props.date} color={element.color}
-            id={element._id} prev_time={{
-                overTaskId: prevTimeChecker(index, element, array, data) ? array[index + 1]._id : "",
-                timeStart: prevTimeChecker(index, element, array, data) ? array[index + 1].startTime : "",
-                prev_index: index + 1
-            }} rerender={rerender} setRerender={setRerender} />
+        <Task key={index} task_element={element} currentDate={props.date} prev_time={{
+            overTaskId: prevTimeChecker(index, element, array, data) ? array[index + 1]._id : "",
+            timeStart: prevTimeChecker(index, element, array, data) ? array[index + 1].startTime : "",
+            prev_index: index + 1
+        }} rerender={rerender} setRerender={setRerender} done={element.done} />
     ))
 
 

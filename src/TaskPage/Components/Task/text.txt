@@ -1,0 +1,21 @@
+    const overTaskCondition = ((`${hourStart}:${minuteStart}` < prevTimeStart && prevTimeStart < `${hourEnd}:${minuteEnd}`) || (prevTimeStartDate - nowDate) / (60 * 1000) <= 5) && prevTimeStart !== '';
+
+    const overTaskArray = window.localStorage.getItem("over_task_array").split(',')
+
+    if (overTaskCondition || overTaskArray.includes(props.id)) {
+        console.log(`${hourStart}:${minuteStart}`)
+        console.log((`${hourStart}:${minuteStart}` < prevTimeStart && prevTimeStart < `${hourEnd}:${minuteEnd}`))
+        width = width / 2
+        if (overTaskCondition && !overTaskArray.includes(props.id)) {
+            overTaskArray.push(prev_time.overTaskId)
+            window.localStorage.setItem('over_task_array', overTaskArray)
+        }
+
+        if (overTaskArray.includes(props.id)) {
+            left = 145 + 70
+        }
+    } else {
+        width = 250
+        left = 60
+        window.localStorage.setItem('over_task_array', overTaskArray.filter(item => item !== props.id))
+    }

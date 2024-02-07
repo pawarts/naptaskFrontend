@@ -14,6 +14,7 @@ const EditTask = (props) => {
     const [dateValue, setDate] = useState('');
     const [colorValue, setColorValue] = useState('');
 
+    console.log(colorValue)
 
     const changeInput = (event, type) => {
         const value = event.target.value;
@@ -50,7 +51,7 @@ const EditTask = (props) => {
         if (timeEnd === '') {
             setTimeEnd(task_info.endTime)
         }
-
+        console.log(colorValue)
         if (timeStart < timeEnd || (timeStart === '' || timeEnd === '')) {
 
             const dataSet = {
@@ -58,7 +59,7 @@ const EditTask = (props) => {
                 startTime: timeStart ? timeStart : task_info.startTime,
                 endTime: timeEnd ? timeEnd : task_info.endTime,
                 date: dateValue ? dateValue : task_info.date,
-                color: colorValue ? colorValue : task_info.color,
+                color: colorValue ? `#${colorValue}` : task_info.color,
                 user_id: localStorage.getItem('user_id')
             }
 
@@ -91,7 +92,7 @@ const EditTask = (props) => {
 
             <div className={s.input_title_wrapper}>
                 <Input input_name='Title' value={titleValue}
-                    changeInput={changeInput} />
+                    changeInput={changeInput} maxLength={50} />
             </div>
 
             <div className={s.time_wrapper}>
@@ -107,12 +108,13 @@ const EditTask = (props) => {
                     changeInput={changeInput} value={dateValue} input_type='date' />
             </div>
 
+
             <div className={s.color_group_choose}>
-                <ChooseColor color="#edede9" setColorValue={changeInput} />
-                <ChooseColor color="#d6ccc2" setColorValue={changeInput} />
-                <ChooseColor color="#f5ebe0" setColorValue={changeInput} />
-                <ChooseColor color="#e3d5ca" setColorValue={changeInput} />
-                <ChooseColor color="#d5bdaf" setColorValue={changeInput} />
+                <ChooseColor input_name="Color" color_number={0} setColorValue={changeInput} />
+                <ChooseColor input_name="Color" color_number={1} setColorValue={changeInput} />
+                <ChooseColor input_name="Color" color_number={2} setColorValue={changeInput} />
+                <ChooseColor input_name="Color" color_number={3} setColorValue={changeInput} />
+                <ChooseColor input_name="Color" color_number={4} setColorValue={changeInput} />
             </div>
 
             <SubmitButton button_text='Edit Task' click={editTask} />

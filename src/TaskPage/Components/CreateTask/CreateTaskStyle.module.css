@@ -66,6 +66,6 @@ input[type="date"] {
     border-bottom: 2px solid #9c9c9c;
 }
 
-input[type="time"]{
+input[type="time"] {
     width: 110px;
 }
