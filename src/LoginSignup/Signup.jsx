@@ -75,11 +75,11 @@ const Signup = (props) => {
                 <Title title="Create account" subtitle="Please enter your details" />
                 <div className='input_wrapper'>
                     <Input input_name="Login" value={loginInput}
-                        changeInput={changeInput} />
+                        changeInput={changeInput} maxLength={20} />
                     <Input input_name="Email" value={emailInput}
-                        changeInput={changeInput} />
+                        changeInput={changeInput} maxLength={50} />
                     <Input input_name="Password" value={passwordInput}
-                        changeInput={changeInput} type="password" />
+                        changeInput={changeInput} type="password" maxLength={12} />
                 </div>
                 <SubmitButton button_text="Sign Up" click={setUserProfile} />
             </form>

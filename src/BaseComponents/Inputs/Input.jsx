@@ -21,7 +21,7 @@ const Input = (props) => {
             <input id={`${input_name}`} className={`${s.enter_input} ${isNotEmpty ? s.active_input : ''}`}
                 onInput={event => inputValueLengthChecker(event)}
                 type={props.type || "text"} name={`${input_name}`} value={props.value}
-                onChange={(event) => props.changeInput(event, input_name)} />
+                onChange={(event) => props.changeInput(event, input_name)} maxLength={props.maxLength} />
             <label htmlFor={`${input_name}`}
                 className={`${s.input_title}
                  ${isNotEmpty ? s.active_label_input : s.label_input}`}>

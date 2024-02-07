@@ -80,9 +80,9 @@ const Login = (props) => {
                 <Title title="Welcome back!" subtitle="Please enter your details" />
                 <div className='input_wrapper'>
                     <Input input_name="Login" value={loginInput}
-                        changeInput={changeInput} />
+                        changeInput={changeInput} maxLength={20} />
                     <Input input_name="Password" value={passwordInput}
-                        changeInput={changeInput} type="password" />
+                        changeInput={changeInput} type="password" maxLength={12} />
                 </div>
                 <SubmitButton button_text="Log In" click={getUserProfile} />
             </div>
