@@ -82,7 +82,7 @@ const Login = (props) => {
                     <Input input_name="Login" value={loginInput}
                         changeInput={changeInput} maxLength={20} />
                     <Input input_name="Password" value={passwordInput}
-                        changeInput={changeInput} type="password" maxLength={12} />
+                        changeInput={changeInput} type="password" maxLength={20} />
                 </div>
                 <SubmitButton button_text="Log In" click={getUserProfile} />
             </div>
