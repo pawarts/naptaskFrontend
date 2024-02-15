@@ -179,28 +179,6 @@ const FormTask = (props) => {
         }
     }
 
-    [
-        {
-            "Вт": {
-                "08:15": {
-                    subject: "Math",
-                    duration: 45
-                },
-                "09:15": {
-                    subject: "English",
-                    duration: 90
-                },
-                "12:15": {
-                    subject: "Meet",
-                    duration: 15
-                }
-            }
-        },
-        {
-
-        }
-    ]
-
 
     return (
         <div action="" method='POST' style={{
