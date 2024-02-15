@@ -1,0 +1,14 @@
+.warning_wrapper {
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    border-radius: 5px;
+    margin-top: 11px;
+
+    /*background-color: hsla(0, 100%, 64%, 0.3);*/
+}
+
+.warning_text {
+    font-size: 13px;
+    color: #D90429;
+}
