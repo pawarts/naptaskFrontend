@@ -87,7 +87,6 @@ const Task = (props) => {
             if (minuteStart > 0) {
                 top = top + minute_per_pixel * minuteStart;
             }
-            console.log(gapBetweenTask)
 
             if (gapBetweenTask <= 2) {
                 top -= 25
@@ -121,8 +120,6 @@ const Task = (props) => {
     }
 
     const openContextMenu = () => {
-
-        console.log(task_element._id)
 
         const task_info = {
             id: task_element._id,
