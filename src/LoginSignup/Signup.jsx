@@ -22,7 +22,11 @@ const Signup = (props) => {
     const setUserProfile = (event) => {
         event.preventDefault();
 
-        const stringValidator = (string, maxLength) => {
+        const stringValidator = (string, maxLength, type) => {
+            if (type === 'email') {
+                return string === '' || string.length > maxLength || string.includes(' ') || !string.includes('@') || !string.includes('.')
+            }
+
             return string === '' || string.length > maxLength || string.includes(' ')
         }
 
@@ -38,7 +42,7 @@ const Signup = (props) => {
             setPasswordInputWarning(false)
         }
 
-        if (stringValidator(emailInput, 30)) {
+        if (stringValidator(emailInput, 30, 'email')) {
             setEmailInputWarning(true)
         } else {
             setEmailInputWarning(false)

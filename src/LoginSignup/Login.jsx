@@ -67,6 +67,7 @@ const Login = (props) => {
                     console.log(result)
                     if (result.length > 0) {
                         localStorage.setItem("user_id", result[0]._id);
+                        localStorage.setItem("login", result[0].login);
                         window.location.pathname = '/task'
                     } else {
                         localStorage.setItem("user_id", "empty string");

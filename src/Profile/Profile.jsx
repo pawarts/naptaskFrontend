@@ -13,7 +13,12 @@ const Profile = (props) => {
 
     return (
         <div className={s.wrapper}>
-            <Link className={s.link} to="/login" onClick={exitFucntion}>Exit</Link>
+            <h1 className="screen_title">Settings</h1>
+            <div className={s.settings_block}>
+                <h3 className='settings_title'>Account</h3>
+            </div>
+
+            <Link to='' onClick={event => exitFucntion(event)}>Exit</Link>
             <Navigation />
         </div>
     )

@@ -8,9 +8,9 @@ import CreateTask from './TaskPage/Components/CreateTask/CreateTask';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './styles/nullystyle/fonts.css';
-
-import FriendWrapper from './Friends/FriendWrapper';
 import TaskInfo from './TaskPage/Components/TaskInfo/TaskInfo';
+import Schedule from './Schedule/Schedule';
+import ScheduleInfo from './Schedule/Component/ScheduleInfo/ScheduleInfo';
 
 
 
@@ -34,7 +34,11 @@ function App() {
           <Route path='/task_info' element={<TaskInfo />} />
 
           <Route path='/goal' element={<Goal />} />
-          <Route path='/friends' element={<FriendWrapper />} />
+
+          <Route path='/schedule' element={<Schedule />} />
+          <Route path='/schedule_info' element={<ScheduleInfo />} />
+
+
           <Route path='/person' element={<Profile />} />
 
         </Routes>

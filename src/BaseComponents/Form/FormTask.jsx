@@ -148,7 +148,6 @@ const FormTask = (props) => {
 
 
             const id = props.id;
-            console.log(id)
             const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
             const URL = `${domain}/task/edit/${id}`
 

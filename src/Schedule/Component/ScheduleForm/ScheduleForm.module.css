@@ -1,0 +1,84 @@
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 100px;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: #fff;
+
+}
+
+
+
+.form_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 75px 0 0 0;
+}
+
+.form_wrapper .wrapper_button {
+    margin-bottom: 40px;
+    width: 283px;
+}
+
+.day_group_wrapper .add_button {
+    display: flex;
+    align-items: center;
+
+    background-color: transparent;
+
+    margin-left: 12px;
+
+    font-size: 15px;
+}
+
+.day_group_wrapper .add_button p {
+    margin-right: 70px;
+}
+
+.time_inputs {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 30px;
+
+    max-width: 273px;
+}
+
+.submit_button_wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 35px;
+}
+
+.button {
+    font-size: 15px;
+}
+
+.button:first-child {
+    margin-right: 50px;
+}
+
+.submit_button {
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 6px;
+}
+
+.color_group_choose {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
