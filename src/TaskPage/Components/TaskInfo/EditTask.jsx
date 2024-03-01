@@ -1,4 +1,4 @@
-import FormTask from '../../../BaseComponents/Form/FormTask'
+import FormTask from "../../../BaseComponents/Form/FormTask"
 
 const EditTask = (props) => {
     return (

@@ -37,7 +37,6 @@ const Table = (props) => {
             .then(response => response.json())
             .then(result => {
                 setData(result.tasks);
-
                 const howManyTaskToday = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}`).length;
                 const howManyTaskTodayDone = result.tasks.filter(item => item.date === `${currentYear}-${currentMonth}-${currentDay}` && item.done).length;
 
