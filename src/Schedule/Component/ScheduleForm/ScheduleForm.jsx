@@ -61,6 +61,7 @@ const ScheduleForm = (props) => {
     const daysArray = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
     const changeDaySchedule = (day, newValue) => {
+
         const objectKey = daysArray[day];
         let dayArray = schedule.scheduleBody[objectKey];
         dayArray.push(newValue);
@@ -107,14 +108,14 @@ const ScheduleForm = (props) => {
         schedule.scheduleBody = value.scheduleBody
         setSchedule({ ...schedule, schedule })
     }
-    const submitForm = (edit) => {
+    const submitForm = () => {
 
         if (schedule.schedule) {
             delete schedule.schedule
         }
 
         console.log('schedule')
-        if (props.editSchedule || edit) {
+        if (props.editSchedule) {
             submitEditSchedule()
         } else {
             submitCreateSchedule()
