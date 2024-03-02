@@ -89,8 +89,8 @@ const DayGroup = (props) => {
                 <p>Add task</p>
                 <img src={addIcon} alt="" />
             </button>
-            <div className={s.form_wrapper} style={{
-                display: addVisibility ? 'block' : 'none'
+            <div className={s.form_task_wrapper} style={{
+                display: addVisibility ? 'flex' : 'none'
             }}>
                 <Input input_name="Title" value={titleValue} changeInput={changeInput} warning_text='Task title empty' visibility={titleWarning} />
 

@@ -13,15 +13,12 @@
 .schedule_info_item_wrapper {
     display: flex;
     align-items: center;
-    width: 100%;
 }
 
 .schedule_info_item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    width: 100%;
 
 
     margin-bottom: 10px;
@@ -58,6 +55,7 @@
 
 .schedule_item {
     margin: 0 12px 10px 12px;
+    width: 100%;
 }
 
 .day_title {

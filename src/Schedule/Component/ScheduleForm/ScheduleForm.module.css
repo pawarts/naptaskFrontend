@@ -6,8 +6,9 @@
 
     display: flex;
     flex-direction: column;
+    /* 
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 
     margin-top: 100px;
 
@@ -16,14 +17,6 @@
 
     background: #fff;
 
-}
-
-.day_group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    width: 100vw;
 }
 
 .form_wrapper {
@@ -38,9 +31,15 @@
     width: 283px;
 }
 
+.form_task_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .day_group_wrapper {
     display: flex;
     flex-direction: column;
+    align-items: baseline;
 }
 
 .day_group_wrapper .add_button {
@@ -92,4 +91,5 @@
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+    width: 273px;
 }
