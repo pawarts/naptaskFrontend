@@ -13,6 +13,7 @@
 .schedule_info_item_wrapper {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .schedule_info_item {
