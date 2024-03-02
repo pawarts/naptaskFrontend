@@ -18,19 +18,29 @@
 
 }
 
+.day_group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
+    width: 100vw;
+}
 
 .form_wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-
     margin: 75px 0 0 0;
 }
 
 .form_wrapper .wrapper_button {
     margin-bottom: 40px;
     width: 283px;
+}
+
+.day_group_wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
 .day_group_wrapper .add_button {
@@ -61,6 +71,7 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 35px;
+    max-width: 283px;
 }
 
 .button {
