@@ -44,7 +44,7 @@ const ScheduleInfo = (props) => {
                 </div>
             </div>
 
-            <div>
+            <div className={s.schedule_info}>
                 <ScheduleForm createSchedule={createSchedule} editSchedule={true}
                     schedule_body={schedule_body} id={id} openEditWindow={openEditWindow}
                     scheduleBody={scheduleBody} />
