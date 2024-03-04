@@ -11,6 +11,10 @@
     overflow-y: scroll;
 }
 
+.schedule_info {
+    overflow: hidden;
+}
+
 .schedule_info_item_wrapper {
     display: flex;
     align-items: center;

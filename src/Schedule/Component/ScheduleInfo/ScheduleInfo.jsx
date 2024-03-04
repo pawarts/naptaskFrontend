@@ -25,7 +25,7 @@ const ScheduleInfo = (props) => {
 
     return (
         <div className={s.wrapper}>
-            <div style={{
+            <div className={s.schedule_info} style={{
                 overflowY: createSchedule ? 'hidden' : 'scroll',
                 maxHeight: createSchedule ? '100vh' : 'auto'
             }}>
