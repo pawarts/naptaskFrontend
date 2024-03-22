@@ -3,6 +3,7 @@ import s from '../ComponentStyle/Task.module.css'
 import time_icon from './TaskIcon/TimeIcon.svg'
 import more_icon from './TaskIcon/MoreIcon.svg'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 
 //1 hour height qual to 52px
@@ -23,7 +24,7 @@ const Task = (props) => {
     const hourNow = time.getHours();
     const minuteNow = time.getMinutes();
 
-    const currentDate = props.currentDate;
+    const currentDate = new Date(useSelector(state => state.date.date));
     let current_day = transformDateNumberToString(currentDate.getDate());
     let current_month = transformDateNumberToString(currentDate.getMonth() + 1);
     const current_year = currentDate.getFullYear();
@@ -35,10 +36,12 @@ const Task = (props) => {
 
     const task_element = props.task_element;
     const date = task_element.date;
-    const timeStart = task_element.startTime;
-    const timeEnd = task_element.endTime;
+    const timeStart = task_element.startTime || task_element.timeStart;
+    const timeEnd = task_element.endTime || task_element.timeEnd;
     const title = task_element.title;
     const color = task_element.color;
+
+    const schedule_task = props.scheduleTask
 
 
     let hourStart = transformDateNumberToString(Number(timeStart.split(':')[0]));
@@ -80,7 +83,7 @@ const Task = (props) => {
 
     const date_checker = date === `${current_year}-${current_month}-${current_day}`;
     const done = props.done;
-    if (date_checker && !done) {
+    if ((date_checker && !done) || schedule_task) {
         hide = false;
         if (!hide) {
             top = hourStart * time_margin;

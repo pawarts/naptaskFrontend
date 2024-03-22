@@ -7,32 +7,28 @@ import next_day_button from "./TaskIcons/next_day_button.svg"
 
 import { useState } from "react"
 
+import { useSelector, useDispatch } from "react-redux"
+import { nextDay, prevDay, nowDay } from '../../../_store/slices/dateSlice'
+
 import s from './TaskStyles/TaskHeader.module.css'
 
 const TaskHeader = (props) => {
 
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const date = new Date(useSelector(state => state.date.date))
+    const dispatch = useDispatch()
 
     const handleNextDay = () => {
-        const nextDay = new Date(selectedDate);
-        nextDay.setDate(selectedDate.getDate() + 1);
-        setSelectedDate(nextDay);
-        props.change_date(nextDay)
+        dispatch(nextDay())
     };
 
     const handlePrevDay = () => {
-        const prevDay = new Date(selectedDate);
-        prevDay.setDate(selectedDate.getDate() - 1);
-        setSelectedDate(prevDay);
-        props.change_date(prevDay);
+        dispatch(prevDay())
     };
 
     const handleToday = () => {
-        const today = new Date();
-        today.setDate(today.getDate());
-        setSelectedDate(today);
-        props.change_date(today);
+        dispatch(nowDay())
     };
+
 
 
     return (
@@ -41,8 +37,8 @@ const TaskHeader = (props) => {
             <TaskDateButton icon={prev_day_button}
                 middle_button={true} action={handlePrevDay} />
             <TaskDateButton icon={next_day_button} action={handleNextDay} />
-            <DateText number={selectedDate.getDate()} month={selectedDate.getMonth()}
-                day={selectedDate.getDay()} />
+            <DateText number={date.getDate()} month={date.getMonth()}
+                day={date.getDay()} />
         </div>
     )
 }

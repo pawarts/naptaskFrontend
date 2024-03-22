@@ -8,7 +8,7 @@ const Perfomance = (props) => {
             <p className={`${s.perfomance_text} grey`}>Today</p>
 
             <div className={s.style}>
-                <PerfomanceDiagram howManyTask={props.howManyTask} />
+                <PerfomanceDiagram />
                 <p className={`${s.perfomance_text} grey`}>task</p>
             </div>
         </div>

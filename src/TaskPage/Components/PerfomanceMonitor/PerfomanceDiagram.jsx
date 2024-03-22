@@ -7,6 +7,9 @@ import {
     Tooltip,
     Legend
 } from 'chart.js'
+
+import { useSelector } from 'react-redux'
+
 import s from './PerfomanceStyles/PerfomanceDiagram.module.css';
 
 ChartJS.register(
@@ -17,13 +20,16 @@ ChartJS.register(
 
 const PerfomanceDiagram = (props) => {
 
-
-    const howManyTask = props.howManyTask
-    const allTaskNumber = howManyTask.howManyTask
-    const doneTaskNumber = howManyTask.howManyTaskDone
+    const allTaskNumber = useSelector(state => state.tasks.howManyTaskToday)
+    const doneTaskNumber = useSelector(state => state.tasks.howManyTaskTodayDone)
+    //console.log(allTaskNumber)
 
     const done = doneTaskNumber / allTaskNumber;
     const undone = done > 0 ? 1 - done : 0;
+
+    const correctFormatData = (data) => {
+        return data < 10 ? `0${data}` : data
+    }
 
     const data = {
         datasets: [{
