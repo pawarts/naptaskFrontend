@@ -7,8 +7,13 @@ import addIcon from '../../Icons/add.svg'
 
 import s from './ScheduleForm.module.css'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeDaySchedule, setActiveSchedule } from '../../../_store/slices/scheduleSlice'
 
 const DayGroup = (props) => {
+
+    const schedule = useSelector(state => state.schedules.activeSchedule);
+    const dispatch = useDispatch();
 
     const [daySchedule, setDaySchedule] = useState([]);
 
@@ -23,6 +28,9 @@ const DayGroup = (props) => {
     const [colorWarning, setColorWarning] = useState(false)
 
     const [addVisibility, setAddVisibility] = useState(false)
+
+    const dayShortForm = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+    const scheduleKeyObject = dayShortForm[props.day_number]
 
 
     const changeInput = (event, type) => {
@@ -68,12 +76,31 @@ const DayGroup = (props) => {
 
 
         if (titleValue !== '' && (timeStart < timeEnd && timeStart !== '' && timeEnd !== '') && colorValue !== '') {
-            props.change_day_schedule(props.day_number, {
+
+
+            const newValue = {
                 'title': titleValue,
                 'timeStart': timeStart,
                 'timeEnd': timeEnd,
                 'color': colorValue
-            })
+            }
+
+            const copyObject = JSON.parse(JSON.stringify(schedule));
+            const copiedScheduleBody = copyObject.scheduleBody
+
+            const updateArray = [...copiedScheduleBody[scheduleKeyObject], newValue]
+
+            copiedScheduleBody[scheduleKeyObject] = updateArray
+            copyObject.scheduleBody = copiedScheduleBody
+
+            dispatch(setActiveSchedule(copyObject))
+
+            /*props.change_day_schedule(props.day_number, {
+                'title': titleValue,
+                'timeStart': timeStart,
+                'timeEnd': timeEnd,
+                'color': colorValue
+            })*/
         }
     }
 
@@ -83,7 +110,7 @@ const DayGroup = (props) => {
     }
     return (
         <div className={s.day_group_wrapper}>
-            <ScheduleInfoItem info_item={props.schedule_body} day_number={props.day_number} button_wrapper_view={true}
+            <ScheduleInfoItem info_item={schedule.scheduleBody[scheduleKeyObject]} day_number={props.day_number} button_wrapper_view={true}
                 deleteTask={props.deleteTask} />
             <button className={s.add_button} onClick={openAddTask}>
                 <p>Add task</p>

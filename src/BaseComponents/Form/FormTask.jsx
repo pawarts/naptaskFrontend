@@ -6,6 +6,13 @@ import SubmitButton from '../Buttons/SubmitButton'
 import ChooseColor from '../Inputs/ChooseColor'
 
 import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { busyTimeChange } from '../../_store/slices/viewSlice'
+import { setFreeTime, setTimeGap } from '../../_store/slices/freeTimeSlice'
+import BusyTime from './BusyTime'
+import { setTimeEnd, setTimeStart } from '../../_store/slices/taskFormSlice'
+
+import { getWeek } from 'date-fns';
 
 
 const FormTask = (props) => {
@@ -13,8 +20,8 @@ const FormTask = (props) => {
     const [titleValue, setTitleValue] = useState('');
     const [titleWarning, setTitleWarning] = useState(false);
 
-    const [timeStart, setTimeStart] = useState('');
-    const [timeEnd, setTimeEnd] = useState('');
+    const timeStart = useSelector(state => state.taskForm.timeStart);
+    const timeEnd = useSelector(state => state.taskForm.timeEnd);
     const [timeWarning, setTimeWarning] = useState(false);
 
     const [dateValue, setDateValue] = useState('');
@@ -29,6 +36,16 @@ const FormTask = (props) => {
     const currentYear = currentTime.getFullYear();
     let nowHour = currentTime.getHours();
     let nowMinute = currentTime.getMinutes();
+
+    const dispatch = useDispatch();
+
+    const schedules = useSelector(state => state.schedules.scheduleBody);
+    const tasks = useSelector(state => state.tasks.tasks);
+
+    //schedules[dayKey[day]]
+    const day = useSelector(state => state.date.date);
+
+    const dayKey = useSelector(state => state.date.dayShortForm);
 
     if (currentMonth < 10) {
         currentMonth = '0' + currentMonth;
@@ -54,10 +71,10 @@ const FormTask = (props) => {
                 setTitleValue(value);
                 break;
             case 'Start time':
-                setTimeStart(value);
+                dispatch(setTimeStart(value));
                 break;
             case 'End time':
-                setTimeEnd(value);
+                dispatch(setTimeEnd(value));
                 break;
             case 'Date':
                 setDateValue(value);
@@ -102,6 +119,120 @@ const FormTask = (props) => {
             && (colorValue !== '' || !isCreate);
 
         return formValid
+    }
+
+    const filterArray = (element, timeStart, timeEnd) => {
+        //console.log(`${element.timeStart} - ${element.timeEnd}`)
+
+        const requestStart = timeStart || '11:20'
+        const requestEnd = timeEnd || '19:40'
+        const timeTaskStart = element.timeStart || element.startTime
+        const timeTaskEnd = element.timeEnd || element.endTime
+
+        return (requestStart > timeTaskStart || requestEnd > timeTaskStart) && (requestStart < timeTaskEnd || timeTaskEnd > requestEnd)
+    }
+
+    const freeTime = () => {
+        const requestStart = timeStart
+        const requestEnd = timeEnd
+        const today = dateValue;
+
+        const day = new Date(today).getDay()
+        let sort = '[]'
+        if (schedules[dayKey[day]]) {
+            sort = schedules[dayKey[day]].filter(element => filterArray(element, requestStart, requestEnd))
+        }
+        const taskFilter = tasks.filter(element => {
+            return element.date === today && filterArray(element, requestStart, requestEnd)
+        })
+
+
+
+        if (sort.length === 0 && taskFilter.length === 0) {
+            console.log('Free time')
+            return true
+        } else {
+            console.log("i'm busy at that time please, check my schedule")
+
+            const date = dateValue
+            const day = new Date(date).getDay()
+
+            const dateStart = new Date(`2024-03-11T${requestStart}`)
+            const dateEnd = new Date(`2024-03-11T${requestEnd}`)
+
+            const requestGap = (dateEnd - dateStart) / 60000;
+
+            dispatch(setTimeGap(requestGap))
+
+            const todayTask = tasks.filter(element => element.date === date);
+
+            if (schedules != []) {
+                schedules[dayKey[day]].forEach(element => {
+                    todayTask.push(element)
+                });
+
+                todayTask.sort((a, b) => {
+                    const timeStartA = a.startTime || a.timeStart
+                    const timeStartB = b.startTime || b.timeStart
+
+                    if (timeStartA > timeStartB) {
+                        return 1
+                    } else if (timeStartA < timeStartB) {
+                        return 0
+                    } else {
+                        return -1
+                    }
+                })
+
+                //console.log(todayTask)
+
+                const todayTaskMap = todayTask.map((element, index) => {
+                    const prevTask = index > 0 ? todayTask[index - 1] : element;
+
+                    if (index > 0 && index !== todayTask.length - 1) {
+                        if (date === element.date || element.date === undefined) {
+                            return {
+                                timeStart: prevTask.timeEnd || prevTask.endTime,
+                                timeEnd: element.timeStart || element.startTime
+                            }
+                        } else {
+                            return null
+                        }
+                    } else if (index === 0) {
+                        return {
+                            timeStart: '07:00',
+                            timeEnd: element.timeStart || element.startTime
+                        }
+                    } else if (index === todayTask.length - 1) {
+                        return [
+                            {
+                                timeStart: prevTask.timeEnd || prevTask.endTime,
+                                timeEnd: element.timeStart || element.startTime
+                            },
+                            {
+                                timeStart: element.timeEnd || element.endTime,
+                                timeEnd: '22:00'
+                            }
+                        ]
+                    }
+
+                    return null
+
+                }).flat().filter(element => {
+                    const timeStart = new Date(`2024-03-12T${element.timeStart}`);
+                    const timeEnd = new Date(`2024-03-12T${element.timeEnd}`);
+
+                    const timeGap = (timeEnd - timeStart) / 60000
+
+                    return element !== null && timeGap >= requestGap
+                })
+
+                dispatch(setFreeTime(todayTaskMap))
+            }
+            dispatch(busyTimeChange(true))
+
+            return false
+        }
     }
 
     const createTask = () => {
@@ -168,13 +299,18 @@ const FormTask = (props) => {
 
 
     const submitFormFunction = (typeSubmit) => {
-        switch (typeSubmit) {
-            case 'create':
-                return createTask()
-            case 'edit':
-                return editTask()
-            default:
-                console.error('Unkown type')
+
+        //freeTime()
+
+        if (freeTime()) {
+            switch (typeSubmit) {
+                case 'create':
+                    return createTask()
+                case 'edit':
+                    return editTask()
+                default:
+                    console.error('Unkown type')
+            }
         }
     }
 
@@ -221,6 +357,8 @@ const FormTask = (props) => {
             <SubmitButton button_text={props.button_text} click={(event) => {
                 submitFormFunction(props.type)
             }} />
+
+            <BusyTime />
         </div>
     )
 }

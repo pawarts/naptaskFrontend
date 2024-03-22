@@ -12,6 +12,8 @@ import TaskInfo from './TaskPage/Components/TaskInfo/TaskInfo';
 import Schedule from './Schedule/Schedule';
 import ScheduleInfo from './Schedule/Component/ScheduleInfo/ScheduleInfo';
 
+import s from './App.module.css'
+
 
 
 
@@ -22,7 +24,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className={s.wrapper}>
       <Router>
         <Routes>
 

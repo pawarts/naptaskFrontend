@@ -4,12 +4,18 @@ import ScheduleHeader from "./ScheduleHeader"
 
 import s from './ScheduleInfo.module.css'
 import ScheduleInfoItem from "./ScheduleInfoItem"
+import { useDispatch, useSelector } from "react-redux"
+import { setActiveSchedule } from "../../../_store/slices/scheduleSlice"
 
 const ScheduleInfo = (props) => {
 
-    const schedule_body = JSON.parse(window.localStorage.getItem('scheduleBody'))
+    //const schedule_body = JSON.parse(window.localStorage.getItem('scheduleBody'))
 
-    const [schedule, setScheduleBody] = useState(schedule_body);
+    const schedule = useSelector(state => state.schedules.activeSchedule)
+
+    const dispatch = useDispatch();
+
+    //const [schedule, setScheduleBody] = useState(schedule_body);
     const [createSchedule, setCreateSchedule] = useState(false);
 
 
@@ -18,7 +24,7 @@ const ScheduleInfo = (props) => {
     }
 
     const scheduleBody = (newValue) => {
-        setScheduleBody(newValue)
+        dispatch(setActiveSchedule(newValue))
     }
 
     const id = schedule._id
@@ -46,7 +52,7 @@ const ScheduleInfo = (props) => {
 
             <div className={s.schedule_info}>
                 <ScheduleForm createSchedule={createSchedule} editSchedule={true}
-                    schedule_body={schedule_body} id={id} openEditWindow={openEditWindow}
+                    schedule_body={schedule} id={id} openEditWindow={openEditWindow}
                     scheduleBody={scheduleBody} />
             </div>
         </div>

@@ -6,53 +6,20 @@ import s from './Schedule.module.css'
 
 import addIcon from './Icons/add.svg'
 import ScheduleForm from './Component/ScheduleForm/ScheduleForm'
-import { useState, useEffect } from 'react'
+
+import { useState, useEffect, Suspense } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setSchedule, setScheduleBody } from '../_store/slices/scheduleSlice'
 
 const Schedule = (props) => {
 
     const [createSchedule, setCreateSchedule] = useState(false)
-    const [schedule, setSchedule] = useState([])
-    const [scheduleLength, setScheduleLength] = useState(schedule.length)
     const [rerender, setRerender] = useState(false)
 
-    let scheduleBody = {
-        title: "Week 1",
-        scheduleBody: {
-            mon: [
-                {
-                    title: "Math",
-                    timeStart: "12:15",
-                    timeEnd: "14:00",
-                    color: "F0EAD2"
-                },
-                {
-                    title: "Englsih",
-                    timeStart: "14:15",
-                    timeEnd: "15:55",
-                    color: "FFD6FF"
-                }
-            ],
-            tue: [
-                {
-                    title: "Math",
-                    timeStart: "12:15",
-                    timeEnd: "14:00",
-                    color: "F0EAD2"
-                },
-                {
-                    title: "Math",
-                    timeStart: "14:15",
-                    timeEnd: "15:55",
-                    color: "FFD6FF"
-                }
-            ],
-            wed: [],
-            thu: [],
-            fri: [],
-            sat: [],
-            sun: []
-        }
-    }
+    const schedules = useSelector(state => state.schedules.schedules)
+    const canAddNewSchedule = useSelector(state => state.schedules.canAddNewSchedule)
+    const scheduleTask = useSelector(state => state.schedules.scheduleBody)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
@@ -61,13 +28,13 @@ const Schedule = (props) => {
         })
             .then(response => response.json())
             .then(result => {
-                setSchedule(result.schedules)
+                dispatch(setSchedule(result.schedules))
+                dispatch(setScheduleBody(result.schedules))
             })
             .catch(error => console.error(error))
-        setScheduleLength(schedule.length > 3)
     }, [rerender])
 
-    const scheduleLink = schedule.map((element, index) => (
+    const scheduleLink = schedules.map((element, index) => (
         <ScheduleLink key={index} schedule_title={element.title}
             schedule_body={element} />))
 
@@ -82,7 +49,7 @@ const Schedule = (props) => {
             <div className={s.schedule_link_wrapper}>
                 {scheduleLink}
                 <Link className={s.scheduleLink} to='' onClick={openCreateSchedule}
-                    style={{ display: scheduleLength ? 'none' : 'flex' }}>
+                    style={{ display: canAddNewSchedule ? 'flex' : 'none' }}>
                     <p className='button_text'>Create schedule</p>
                     <img src={addIcon} alt="" />
                 </Link>

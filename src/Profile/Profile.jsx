@@ -1,15 +1,24 @@
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { addTask } from '../_store/slices/taskSlice'
+
 import Navigation from '../BaseComponents/Navigation/Navigation'
 import s from './Profile.module.css'
+import { exitUser } from '../_store/slices/authSlice'
 
 const Profile = (props) => {
+    const dispatch = useDispatch()
 
     const exitFucntion = (event) => {
         event.preventDefault();
 
         window.localStorage.removeItem("user_id");
+
         window.location.pathname = '/login';
     }
+
+
 
     return (
         <div className={s.wrapper}>
