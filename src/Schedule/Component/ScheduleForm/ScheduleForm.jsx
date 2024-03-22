@@ -72,6 +72,7 @@ const ScheduleForm = (props) => {
     const submitCreateSchedule = () => {
         const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
         const url = '/schedules/add'
+        
         fetch(`${domain}${url}`, {
             method: 'POST',
             headers: {
@@ -98,7 +99,8 @@ const ScheduleForm = (props) => {
         })
             .then(response => response.json())
             .then(() => {
-
+                
+        console.log(schedule)
                 dispatch(setActiveSchedule(schedule))
                 props.openEditWindow()
             })
