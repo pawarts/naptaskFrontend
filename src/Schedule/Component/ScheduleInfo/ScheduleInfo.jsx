@@ -18,6 +18,8 @@ const ScheduleInfo = (props) => {
     //const [schedule, setScheduleBody] = useState(schedule_body);
     const [createSchedule, setCreateSchedule] = useState(false);
 
+    //console.log(schedule)
+
 
     const openEditWindow = () => {
         setCreateSchedule(!createSchedule)

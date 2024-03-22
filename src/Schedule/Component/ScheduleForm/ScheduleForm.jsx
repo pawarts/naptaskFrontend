@@ -33,22 +33,26 @@ const ScheduleForm = (props) => {
         user_id: localStorage.getItem('user_id')
     } : propsSchedule)
 
+    console.log(schedule)
+
     const changeInput = (event, type) => {
 
         const value = event.target.value;
+
+        const copySchedule = JSON.parse(JSON.stringify(schedule))
 
         switch (type) {
             case 'Schedule name':
                 setScheduleName(value)
 
-                schedule.title = value
+                copySchedule.title = value
 
-                setSchedule({ ...schedule, schedule })
+                setSchedule(copySchedule)
                 break;
             case 'choose_week':
-                schedule.even = Number(value)
+                copySchedule.even = Number(value)
 
-                setSchedule({ ...schedule, schedule })
+                setSchedule(copySchedule)
                 break;
             default:
                 console.log('Type is undefined')
