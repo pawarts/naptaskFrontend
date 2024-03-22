@@ -33,8 +33,6 @@ const ScheduleForm = (props) => {
         user_id: localStorage.getItem('user_id')
     } : propsSchedule)
 
-    console.log(schedule)
-
     const changeInput = (event, type) => {
 
         const value = event.target.value;
