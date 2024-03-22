@@ -89,15 +89,12 @@ const ScheduleForm = (props) => {
         const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000';
         const url = `/schedule/edit/${id}`;
 
-        console.log(id);
-        console.log(propsSchedule);
-
         fetch(`${domain}${url}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json', // Вказати тип відправленого контенту
             },
-            body: JSON.stringify(propsSchedule)
+            body: JSON.stringify(schedule)
         })
             .then(response => response.json())
             .then(() => {
