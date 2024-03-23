@@ -8,7 +8,7 @@ import arrowBack from '../ScheduleInfo/Icon/ArrowBack.svg'
 import s from './ScheduleForm.module.css'
 import selectStyle from './SelectStyle.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { setActiveSchedule } from '../../../_store/slices/scheduleSlice'
+import { setActiveSchedule, setFormSchedule } from '../../../_store/slices/scheduleSlice'
 
 const ScheduleForm = (props) => {
 
@@ -42,15 +42,14 @@ const ScheduleForm = (props) => {
         switch (type) {
             case 'Schedule name':
                 setScheduleName(value)
-
                 copySchedule.title = value
-
                 setSchedule(copySchedule)
+                dispatch(setActiveSchedule(copySchedule))
                 break;
             case 'choose_week':
                 copySchedule.even = Number(value)
-
                 setSchedule(copySchedule)
+                dispatch(setActiveSchedule(copySchedule))
                 break;
             default:
                 console.log('Type is undefined')
@@ -64,22 +63,25 @@ const ScheduleForm = (props) => {
         let dayArray = schedule.scheduleBody[objectKey];
 
         dayArray.push(newValue);
-        /*        setSchedule({ ...schedule, schedule }) */
+
+        setSchedule({ ...schedule, schedule })
     }
 
     const submitCreateSchedule = () => {
         const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
         const url = '/schedules/add'
-        
+
         fetch(`${domain}${url}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json', // Вказати тип відправленого контенту
             },
-            body: JSON.stringify(schedule)
+            body: JSON.stringify(propsSchedule)
         })
             .then(response => response.json())
-            .then(() => props.openCreateSchedule())
+            .then(() => {
+                props.openCreateSchedule()
+            })
             .catch(error => console.log(error))
     }
 
@@ -93,12 +95,11 @@ const ScheduleForm = (props) => {
             headers: {
                 'Content-Type': 'application/json', // Вказати тип відправленого контенту
             },
-            body: JSON.stringify(schedule)
+            body: JSON.stringify(propsSchedule)
         })
             .then(response => response.json())
             .then(() => {
-                
-        console.log(schedule)
+
                 dispatch(setActiveSchedule(schedule))
                 props.openEditWindow()
             })
@@ -119,8 +120,11 @@ const ScheduleForm = (props) => {
         if (props.editSchedule) {
             submitEditSchedule()
         } else {
+            console.log(propsSchedule)
             submitCreateSchedule()
         }
+
+        dispatch(setFormSchedule(false))
     }
 
     const schedule_body = schedule.scheduleBody || schedule;

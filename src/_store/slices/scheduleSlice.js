@@ -19,7 +19,8 @@ const scheduleSlice = createSlice(
                     sun: []
                 },
             },
-            canAddNewSchedule: true
+            canAddNewSchedule: true,
+            scheduleFormView: false
         },
         reducers: {
             setSchedule(state, action) {
@@ -65,11 +66,14 @@ const scheduleSlice = createSlice(
             },
             changeDaySchedule(state, action) {
                 console.log(state)
+            },
+            setFormSchedule(state, action) {
+                state.scheduleFormView = action.payload
             }
         }
     }
 )
 
-export const { setSchedule, setScheduleBody, setActiveSchedule, changeDaySchedule } = scheduleSlice.actions
+export const { setSchedule, setScheduleBody, setActiveSchedule, changeDaySchedule, setFormSchedule } = scheduleSlice.actions
 
 export default scheduleSlice.reducer

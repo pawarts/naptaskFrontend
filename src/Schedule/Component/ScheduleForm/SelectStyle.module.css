@@ -55,3 +55,18 @@ input[type="radio"]:checked {
     padding: 4px;
     background: transparent;
 }
+
+/*props.createPage ? {
+        title: scheduleName,
+        even: 0,
+        scheduleBody: {
+            mon: [],
+            tue: [],
+            wed: [],
+            thu: [],
+            fri: [],
+            sat: [],
+            sun: []
+        },
+        user_id: localStorage.getItem('user_id')
+    } : */

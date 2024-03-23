@@ -12,6 +12,7 @@ const ScheduleInfo = (props) => {
     //const schedule_body = JSON.parse(window.localStorage.getItem('scheduleBody'))
 
     const schedule = useSelector(state => state.schedules.activeSchedule)
+    const viewSchedule = useSelector(state => state.schedules.scheduleFormView)
 
     const dispatch = useDispatch();
 
@@ -53,7 +54,7 @@ const ScheduleInfo = (props) => {
             </div>
 
             <div className={s.schedule_info}>
-                <ScheduleForm createSchedule={createSchedule} editSchedule={true}
+                <ScheduleForm createSchedule={viewSchedule} editSchedule={true}
                     schedule_body={schedule} id={id} openEditWindow={openEditWindow}
                     scheduleBody={scheduleBody} />
             </div>
