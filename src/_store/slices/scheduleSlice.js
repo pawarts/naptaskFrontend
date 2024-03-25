@@ -19,10 +19,20 @@ const scheduleSlice = createSlice(
                     sun: []
                 },
             },
+            filteredSchedules: [],
             canAddNewSchedule: true,
-            scheduleFormView: false
+            scheduleFormView: false,
+            checkNewSchedule: true
         },
         reducers: {
+            setFiltredSchedule(state, action) {
+                const payload = action.payload;
+
+                const getWeek = payload.getWeek;
+                const schedules = payload.schedules
+
+                state.filteredSchedules = schedules.filter(element => getWeek % 2 === element.even)
+            },
             setSchedule(state, action) {
                 const payload = action.payload;
 
@@ -69,11 +79,14 @@ const scheduleSlice = createSlice(
             },
             setFormSchedule(state, action) {
                 state.scheduleFormView = action.payload
-            }
+            },
+            setCheckNewSchedule(state, action) {
+                state.checkNewSchedule = action.payload
+            },
         }
     }
 )
 
-export const { setSchedule, setScheduleBody, setActiveSchedule, changeDaySchedule, setFormSchedule } = scheduleSlice.actions
+export const { setSchedule, setScheduleBody, setActiveSchedule, changeDaySchedule, setFormSchedule, setCheckNewSchedule, setFiltredSchedule } = scheduleSlice.actions
 
 export default scheduleSlice.reducer

@@ -8,7 +8,7 @@ import { getWeek } from 'date-fns';
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { addTask } from "../../../_store/slices/taskSlice"
-import { setSchedule, setScheduleBody } from "../../../_store/slices/scheduleSlice"
+import { setSchedule, setScheduleBody, setFiltredSchedule } from "../../../_store/slices/scheduleSlice"
 
 
 const Table = (props) => {
@@ -18,14 +18,14 @@ const Table = (props) => {
     const currentDate = useSelector(state => state.date.date);
     const tasks = useSelector(state => state.tasks.tasks)
     const schedules = useSelector(state => state.schedules.schedules)
-    const filteredSchedules = schedules.filter(element => getWeek(currentDate) % 2 === element.even)
+    const filteredSchedules = useSelector(state => state.schedules.filteredSchedules)
 
     //schedules[dayKey[day]]
     const day = useSelector(state => state.date.day)
 
     const dayKey = useSelector(state => state.date.dayShortForm);
 
-    const [rerender, setRerender] = useState(true);
+    const [rerender, setRerender] = useState(useSelector(state => state.schedules.checkNewSchedule));
 
     const a = useSelector(state => state.date.date);
     const currentTime = new Date(a);
@@ -60,6 +60,7 @@ const Table = (props) => {
 
                 setDataToState(result.tasks)
 
+
                 loaded(true)
             })
             .catch(error => console.error('Error fetching data:', error));
@@ -72,6 +73,10 @@ const Table = (props) => {
             .then(result => {
                 dispatch(setSchedule(result.schedules))
                 dispatch(setScheduleBody(filteredSchedules))
+                dispatch(setFiltredSchedule({
+                    getWeek: getWeek(currentDate),
+                    schedules: result.schedules
+                }))
             })
             .catch(error => console.error(error))
 
