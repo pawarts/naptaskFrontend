@@ -23,7 +23,7 @@ const TaskInfoArticles = (props) => {
             display: !props.editMenu ? 'inline-block' : 'none'
         }}>
             <h4 className={`settings_title ${s.title}`}>{taskData.title}</h4>
-            <p className={`${s.content_text} task_font`}>{/* {taskData.content} */}Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
+            <p className={`${s.content_text} task_font`}>{taskData.content}</p>
         </div>
     )
 }
