@@ -2,12 +2,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     width: 100vw;
-    height: calc(100vh - 30px);
-    padding-bottom: 30px;
 }
 
 .done_wrapper {
+    position: fixed;
+    bottom: 30px;
+    left: calc(50vw - 142px);
     width: 273px;
+}
+
+.task_details_wrapper {
+    width: 100vw;
 }

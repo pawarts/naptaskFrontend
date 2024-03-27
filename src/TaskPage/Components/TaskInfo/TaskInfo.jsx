@@ -7,6 +7,7 @@ import SubmitButton from '../../../BaseComponents/Buttons/SubmitButton'
 import s from './TaskInfoStyle/TaskInfo.module.css'
 
 import { useState } from 'react'
+import TaskInfoArticles from './TaskInfoArticles'
 
 const TaskInfo = (props) => {
 
@@ -63,15 +64,20 @@ const TaskInfo = (props) => {
 
     return (
         <div className={s.wrapper} onClick={event => closeContextMenu(event)}>
-            <TaskTitle task_info={task_info} openContextMenu={openContextMenu} />
+            <TaskTitle task_info={task_info} openContextMenu={openContextMenu} editMenu={editMenu} />
 
             <ContextMenu hide={contextMenu} id={task_info.id} openEditMenu={openEditMenu} />
 
             <EditTask hide={editMenu} id={task_info.id} />
 
+            <div className={s.task_details_wrapper}>
+                <TaskInfoArticles type="details" editMenu={editMenu} />
+            </div>
+
             <div className={s.done_wrapper} style={{
                 display: !editMenu ? 'inline-block' : 'none'
             }}>
+
                 <SubmitButton button_text='Mark as done' click={doneTaskAction} />
             </div>
         </div>

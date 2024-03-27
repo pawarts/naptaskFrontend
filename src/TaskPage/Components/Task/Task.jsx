@@ -130,6 +130,7 @@ const Task = (props) => {
             startTime: timeStart,
             endTime: timeEnd,
             color: color,
+            taskDescription: task_element.taskDescription,
             date: date
         }
 
@@ -190,7 +191,9 @@ const Task = (props) => {
                     <p className={`${s.time_text} task_font grey`} >{timeStart} - {timeEnd}</p>
                 </div>
             </div>
-            <div className={`${s.task_more}`} onClick={openContextMenu}>
+            <div className={`${s.task_more}`} onClick={openContextMenu} style={{
+                display: props.scheduleTask ? 'none' : 'block'
+            }}>
                 <img src={more_icon} alt="" className={`task_more ${s.task_more_icon}`} />
             </div>
         </div >

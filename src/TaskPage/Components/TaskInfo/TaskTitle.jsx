@@ -9,7 +9,8 @@ const TaskTitle = (props) => {
 
     return (
         <div className={s.wrapper_header} style={{
-            background: `#${task_info.color}`
+            background: `#${task_info.color}`,
+            marginBottom: !props.editMenu ? '0' : '60px'
         }}>
             <TaskHead action={props.openContextMenu} />
             <h3 className={`screen_title ${s.screen_title}`}>{task_info.title}</h3>
