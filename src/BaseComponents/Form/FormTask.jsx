@@ -30,6 +30,8 @@ const FormTask = (props) => {
     const [colorValue, setColorValue] = useState('');
     const [colorWarning, setColorWarning] = useState(false)
 
+    const [taskDescription, setTaskDesciption] = useState('')
+
     const currentTime = new Date();
     let currentMonth = currentTime.getMonth() + 1;
     let currentDay = currentTime.getDate();
@@ -82,6 +84,9 @@ const FormTask = (props) => {
             case 'Color':
                 setColorValue(value);
                 break;
+            case 'taskDescription':
+                setTaskDesciption(value)
+                break
             default:
                 console.log('Type undefined')
                 break;
@@ -165,7 +170,7 @@ const FormTask = (props) => {
             dispatch(setTimeGap(requestGap))
 
             const todayTask = tasks.filter(element => element.date === date);
-
+            console.log(schedules != [])
             if (schedules != []) {
                 schedules[dayKey[day]].forEach(element => {
                     todayTask.push(element)
@@ -244,6 +249,7 @@ const FormTask = (props) => {
                 endTime: timeEnd,
                 date: dateValue,
                 color: colorValue,
+                taskDescription: taskDescription,
                 user_id: localStorage.getItem('user_id')
             }
 
@@ -316,7 +322,7 @@ const FormTask = (props) => {
 
 
     return (
-        <div action="" method='POST' style={{
+        <div className={s.wrapper} action="" method='POST' style={{
             display: props.hide ? 'block' : 'none'
         }}>
             <h1 className="screen_title">{props.title}</h1>
@@ -353,6 +359,13 @@ const FormTask = (props) => {
                 <ChooseColor input_name="Color" color_number={4} setColorValue={changeInput} />
             </div>
             <Input type="hidden" visibility={colorWarning} warning_text="Choose task color" />
+
+            <div className={s.taskDescriptionWrapper}>
+                <h3 className={s.input_title}>Task description</h3>
+                <textarea className={s.taskDescription} name="taskDescription" id="" value={taskDescription}
+                    onChange={event => changeInput(event, 'taskDescription')}
+                    maxLength="209"></textarea>
+            </div>
 
             <SubmitButton button_text={props.button_text} click={(event) => {
                 submitFormFunction(props.type)

@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    max-width: 273px;
     min-height: calc(100vh - 20px);
     max-height: 100vh;
     overflow: hidden;
@@ -50,6 +51,28 @@
     height: 35px;
 
     border: none;
+}
+
+.taskDescription {
+    width: 249px;
+    height: 114px;
+    resize: none;
+
+    border: 1px solid #000;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 7px;
+}
+
+.taskDescriptionWrapper {
+    margin-top: 32px;
+}
+
+.input_title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 input[type="radio"]:checked {
