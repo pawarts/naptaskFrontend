@@ -49,7 +49,7 @@ const Schedule = (props) => {
             <div className={s.schedule_link_wrapper}>
                 {scheduleLink}
                 <Link className={s.scheduleLink} to='' onClick={openCreateSchedule}
-                    style={{ display: scheduleLink.length <= 4 ? 'flex' : 'none' }}>
+                    style={{ display: scheduleLink.length < 2 ? 'flex' : 'none' }}>
                     <p className='button_text'>Create schedule</p>
                     <img src={addIcon} alt="" />
                 </Link>

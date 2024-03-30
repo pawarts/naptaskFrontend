@@ -26,7 +26,7 @@ const dateSlice = createSlice({
             const newDate = new Date()
             state.date = newDate.toISOString()
             state.day = `${newDate.getDay()}`
-        },
+        }
     }
 })
 

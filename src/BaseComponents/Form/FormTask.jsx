@@ -1,4 +1,5 @@
 import s from './CreateEditTask.module.css'
+import addIcon from './formIcons/add.svg'
 
 import Input from '../Inputs/Input'
 import InputTime from '../Inputs/InputTime'
@@ -13,6 +14,7 @@ import BusyTime from './BusyTime'
 import { setTimeEnd, setTimeStart } from '../../_store/slices/taskFormSlice'
 
 import { getWeek } from 'date-fns';
+import { testFun } from '../../_store/slices/dateSlice'
 
 
 const FormTask = (props) => {
@@ -32,6 +34,10 @@ const FormTask = (props) => {
 
     const [taskDescription, setTaskDesciption] = useState('')
 
+    const [subTaskView, setSubTaskView] = useState(false);
+    const [subtasks, setSubtasks] = useState([]);
+    const [subtaskInput, setSubtaskInput] = useState('')
+
     const currentTime = new Date();
     let currentMonth = currentTime.getMonth() + 1;
     let currentDay = currentTime.getDate();
@@ -44,8 +50,8 @@ const FormTask = (props) => {
     const schedules = useSelector(state => state.schedules.scheduleBody);
     const tasks = useSelector(state => state.tasks.tasks);
 
-    //schedules[dayKey[day]]
-    const day = useSelector(state => state.date.date);
+
+    const day = useSelector(state => state.date.day);
 
     const dayKey = useSelector(state => state.date.dayShortForm);
 
@@ -86,7 +92,10 @@ const FormTask = (props) => {
                 break;
             case 'taskDescription':
                 setTaskDesciption(value)
-                break
+                break;
+            case 'Subtask title':
+                setSubtaskInput(value);
+                break;
             default:
                 console.log('Type undefined')
                 break;
@@ -131,18 +140,25 @@ const FormTask = (props) => {
 
         const requestStart = timeStart || '11:20'
         const requestEnd = timeEnd || '19:40'
+
         const timeTaskStart = element.timeStart || element.startTime
         const timeTaskEnd = element.timeEnd || element.endTime
+
+        console.log(requestStart)
 
         return (requestStart > timeTaskStart || requestEnd > timeTaskStart) && (requestStart < timeTaskEnd || timeTaskEnd > requestEnd)
     }
 
+
     const freeTime = () => {
-        const requestStart = timeStart
-        const requestEnd = timeEnd
-        const today = dateValue;
+        let task_info = JSON.parse(window.localStorage.getItem("task_info"))
+
+        const requestStart = timeStart || task_info.startTime
+        const requestEnd = timeEnd || task_info.endTime
+        const today = dateValue || task_info.date;
 
         const day = new Date(today).getDay()
+        console.log(day)
         let sort = '[]'
         if (schedules[dayKey[day]]) {
             sort = schedules[dayKey[day]].filter(element => filterArray(element, requestStart, requestEnd))
@@ -150,10 +166,8 @@ const FormTask = (props) => {
         const taskFilter = tasks.filter(element => {
             return element.date === today && filterArray(element, requestStart, requestEnd)
         })
-
-
-
-        if (sort.length === 0 && taskFilter.length === 0) {
+        console.log(schedules[dayKey[day]])
+        if ((sort.length === 0 || schedules[dayKey[day]].length === 0) && (taskFilter.length === 0 || tasks.length > 0)) {
             console.log('Free time')
             return true
         } else {
@@ -170,8 +184,7 @@ const FormTask = (props) => {
             dispatch(setTimeGap(requestGap))
 
             const todayTask = tasks.filter(element => element.date === date);
-            console.log(schedules != [])
-            if (schedules != []) {
+            if (schedules != [] && schedules[dayKey[day]] !== undefined) {
                 schedules[dayKey[day]].forEach(element => {
                     todayTask.push(element)
                 });
@@ -250,6 +263,7 @@ const FormTask = (props) => {
                 date: dateValue,
                 color: colorValue,
                 taskDescription: taskDescription,
+                subtask: subtasks,
                 user_id: localStorage.getItem('user_id')
             }
 
@@ -279,6 +293,7 @@ const FormTask = (props) => {
                 startTime: timeStart ? timeStart : task_info.startTime,
                 endTime: timeEnd ? timeEnd : task_info.endTime,
                 date: dateValue ? dateValue : task_info.date,
+                taskDescription: taskDescription || task_info.taskDescription,
                 color: colorValue ? colorValue : task_info.color,
                 user_id: localStorage.getItem('user_id')
             }
@@ -320,12 +335,16 @@ const FormTask = (props) => {
         }
     }
 
+    const subtasksElement = subtasks.map((element, index) => (
+        <p key={index}>{element}</p>
+    ))
 
     return (
         <div className={s.wrapper} action="" method='POST' style={{
             display: props.hide ? 'block' : 'none'
         }}>
             <h1 className="screen_title">{props.title}</h1>
+
 
             <div className={s.input_title_wrapper}>
                 <Input input_name='Title' value={titleValue}
@@ -365,6 +384,26 @@ const FormTask = (props) => {
                 <textarea className={s.taskDescription} name="taskDescription" id="" value={taskDescription}
                     onChange={event => changeInput(event, 'taskDescription')}
                     maxLength="209"></textarea>
+            </div>
+
+            <div className={s.taskDescriptionWrapper}>
+                <h3 className={s.input_title}>Add subtask</h3>
+                {subtasksElement}
+                <button className={s.add_subtask_button} onClick={() => setSubTaskView(!subTaskView)}>
+                    <p>Add task</p>
+                    <img src={addIcon} alt="" />
+                </button>
+
+                <div className={s.form_task_wrapper} style={{
+                    display: subTaskView ? 'flex' : 'none'
+                }}>
+                    <Input input_name="Subtask title" value={subtaskInput} changeInput={changeInput} warning_text='Task title empty' visibility={titleWarning} />
+
+                    <div className={s.submit_button_wrapper}>
+                        <button className={`${s.button}`} onClick={() => setSubTaskView(false)}>Cancel</button>
+                        <button className={`${s.button} ${s.submit_button} black`} onClick={() => setSubtasks([...subtasks, subtaskInput])}>Add task</button>
+                    </div>
+                </div>
             </div>
 
             <SubmitButton button_text={props.button_text} click={(event) => {

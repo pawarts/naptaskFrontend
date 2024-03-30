@@ -5,6 +5,7 @@ import editButton from './ContextIcon/Edit.svg'
 import deleteIcon from './ContextIcon/Delete.svg'
 import { setFormSchedule } from '../../_store/slices/scheduleSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { setContextMenu } from '../../_store/slices/contextSlice'
 
 const ContextMenu = (props) => {
 
@@ -37,6 +38,8 @@ const ContextMenu = (props) => {
     }
 
     const openEditMenu = () => {
+
+        dispatch(setContextMenu(false))
         dispatch(setFormSchedule(!viewSchedule))
     };
 

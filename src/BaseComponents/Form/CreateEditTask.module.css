@@ -6,7 +6,7 @@
     max-width: 273px;
     min-height: calc(100vh - 20px);
     max-height: 100vh;
-    overflow: hidden;
+    padding-bottom: 40px;
 }
 
 .back_link {
@@ -73,6 +73,30 @@
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 15px;
+}
+
+.add_subtask_button {
+    display: flex;
+    align-items: center;
+}
+
+.add_subtask_button p {
+    margin-right: 20px;
+}
+
+.form_task_wrapper {
+    flex-direction: column;
+}
+
+.submit_button_wrapper {
+    margin-top: 20px;
+}
+
+.submit_button_wrapper .submit_button {
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-left: 50px;
 }
 
 input[type="radio"]:checked {

@@ -22,6 +22,8 @@ const BusyTime = (props) => {
         timeStart = freeTimeArray[0].timeStart;
         timeEnd = freeTimeArray[0].timeEnd;
     }
+
+
     const time = useSelector(state => state.freeTime.choosedTime)
 
     const setTime = () => {
