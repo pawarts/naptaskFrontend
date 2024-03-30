@@ -28,7 +28,8 @@ const TaskInfo = (props) => {
         }
     }
 
-    const openEditMenu = () => {
+    const openEditMenu = (event) => {
+        event.preventDefault()
         const copyEditState = !editMenu;
 
         setEditMenu(copyEditState)
@@ -72,6 +73,7 @@ const TaskInfo = (props) => {
 
             <div className={s.task_details_wrapper}>
                 <TaskInfoArticles type="details" editMenu={editMenu} />
+                <TaskInfoArticles type="subtask" editMenu={editMenu} />
             </div>
 
             <div className={s.done_wrapper} style={{

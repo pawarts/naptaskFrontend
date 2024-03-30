@@ -91,13 +91,15 @@ const Table = (props) => {
     const prevTimeChecker = (index, element, array, data) => {
         return index < data.length - 1 && element.date === array[index + 1].date && !array[index + 1].done
     }
-    const task = tasks.map((element, index, array) => (
-        <Task key={index} task_element={element} prev_time={{
-            overTaskId: prevTimeChecker(index, element, array, tasks) ? array[index + 1]._id : "",
-            timeStart: prevTimeChecker(index, element, array, tasks) ? array[index + 1].startTime : "",
-            prev_index: index + 1
-        }} rerender={rerender} setRerender={setRerender} done={element.done} />
-    ))
+    const task = tasks.map((element, index, array) => {
+        return (
+            <Task key={index} task_element={element} prev_time={{
+                overTaskId: prevTimeChecker(index, element, array, tasks) ? array[index + 1]._id : "",
+                timeStart: prevTimeChecker(index, element, array, tasks) ? array[index + 1].startTime : "",
+                prev_index: index + 1
+            }} rerender={rerender} setRerender={setRerender} done={element.done} />
+        )
+    })
 
     const freeTime = (element) => {
         const requestStart = '20:10'

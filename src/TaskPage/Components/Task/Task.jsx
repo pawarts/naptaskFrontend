@@ -4,6 +4,7 @@ import time_icon from './TaskIcon/TimeIcon.svg'
 import more_icon from './TaskIcon/MoreIcon.svg'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 
 //1 hour height qual to 52px
@@ -42,7 +43,6 @@ const Task = (props) => {
     const color = task_element.color;
 
     const schedule_task = props.scheduleTask
-
 
     let hourStart = transformDateNumberToString(Number(timeStart.split(':')[0]));
     let minuteStart = transformDateNumberToString(Number(timeStart.split(':')[1].slice(0, 2)));
@@ -121,6 +121,21 @@ const Task = (props) => {
 
         setClickCounter(clicked);
     }
+    if (done === true && time.toISOString().split('T')[0] > date) {
+        const id = task_element._id;
+        const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
+        const URL = `${domain}/task/delete/${id}`
+
+        fetch(URL, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json', // Вказати тип відправленого контенту
+            },
+            body: JSON.stringify({ user_id: window.localStorage.getItem('user_id') })
+        })
+            .then(response => response.text(''))
+            .catch(error => console.log(error))
+    }
 
     const openContextMenu = () => {
 
@@ -131,13 +146,11 @@ const Task = (props) => {
             endTime: timeEnd,
             color: color,
             taskDescription: task_element.taskDescription,
+            subtask: task_element.subtask,
             date: date
         }
 
         window.localStorage.setItem("task_info", JSON.stringify(task_info))
-
-
-        window.location.pathname = '/task_info';
     }
 
     const short_task = height <= 50;
@@ -191,11 +204,11 @@ const Task = (props) => {
                     <p className={`${s.time_text} task_font grey`} >{timeStart} - {timeEnd}</p>
                 </div>
             </div>
-            <div className={`${s.task_more}`} onClick={openContextMenu} style={{
+            <Link to="/task_info" className={`${s.task_more}`} onClick={openContextMenu} style={{
                 display: props.scheduleTask ? 'none' : 'block'
             }}>
                 <img src={more_icon} alt="" className={`task_more ${s.task_more_icon}`} />
-            </div>
+            </Link>
         </div >
     )
 }
