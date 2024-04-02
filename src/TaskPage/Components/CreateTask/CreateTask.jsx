@@ -5,16 +5,21 @@ import FormTask from '../../../BaseComponents/Form/FormTask'
 import arrowBack from './CreateTaskIcon/ArrowBack.svg'
 
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCheckNewSchedule } from '../../../_store/slices/scheduleSlice'
 
 const CreateTask = (props) => {
     const dispatch = useDispatch();
+    const busyViewer = useSelector(state => state.view.busyTimeView)
+
     const back = () => {
         dispatch(setCheckNewSchedule(false))
     }
     return (
-        <div className={s.wrapper}>
+        <div className={s.wrapper} style={{
+            maxHeight: busyViewer ? '100vh' : 'none',
+            overflowY: busyViewer ? 'hidden' : 'overflow'
+        }}>
             <Link className={s.back_link} to="/task" onClick={back}>
                 <img src={arrowBack} alt="" />
             </Link>

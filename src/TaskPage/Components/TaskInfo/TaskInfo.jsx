@@ -8,9 +8,10 @@ import s from './TaskInfoStyle/TaskInfo.module.css'
 
 import { useState } from 'react'
 import TaskInfoArticles from './TaskInfoArticles'
+import { useSelector } from "react-redux"
 
 const TaskInfo = (props) => {
-
+    const busyViewer = useSelector(state => state.view.busyTimeView)
 
     const [contextMenu, setContextMenu] = useState(false);
     const [editMenu, setEditMenu] = useState(false);
@@ -64,7 +65,11 @@ const TaskInfo = (props) => {
     }
 
     return (
-        <div className={s.wrapper} onClick={event => closeContextMenu(event)}>
+        <div className={s.wrapper} onClick={event => closeContextMenu(event)}
+            style={{
+                maxHeight: busyViewer ? '100vh' : 'none',
+                overflowY: busyViewer ? 'hidden' : 'overflow'
+            }}>
             <TaskTitle task_info={task_info} openContextMenu={openContextMenu} editMenu={editMenu} />
 
             <ContextMenu hide={contextMenu} id={task_info.id} openEditMenu={openEditMenu} />

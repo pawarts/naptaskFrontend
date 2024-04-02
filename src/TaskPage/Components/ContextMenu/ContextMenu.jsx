@@ -23,9 +23,6 @@ const ContextMenu = (props) => {
             body: JSON.stringify({ user_id: window.localStorage.getItem('user_id') })
         })
             .then(response => response.text(''))
-            .then(() => {
-                window.location.pathname = '/task'
-            })
             .catch(error => console.log(error))
     }
 
@@ -36,9 +33,9 @@ const ContextMenu = (props) => {
                 transform: hide ? 'scale(1' : 'scale(0)'
             }}>
             <ContextMenuButton icon_link={editButton}
-                context_text='Edit' action={props.openEditMenu} />
+                context_text='Edit' action={props.openEditMenu} link='' />
             <ContextMenuButton icon_link={deleteIcon}
-                context_text='Delete' action={deleteTask} />
+                context_text='Delete' action={deleteTask} link='/task' />
         </div>
     )
 }

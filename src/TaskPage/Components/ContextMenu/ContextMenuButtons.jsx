@@ -9,7 +9,7 @@ const ContextMenuButton = (props) => {
 
     return (
 
-        <Link to="/task" className={s.context_item} onClick={event => action(event)}>
+        <Link to={props.link} className={s.context_item} onClick={event => action(event)}>
             <img className={s.context_icon} src={link} alt="" />
             <p className='task_font'>{text}</p>
         </Link>
