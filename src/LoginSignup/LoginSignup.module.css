@@ -13,3 +13,7 @@
     align-items: center;
     max-width: 273px;
 }
+
+.submit_link {
+    width: 100%;
+}

@@ -7,6 +7,8 @@ import s from './LoginSignup.module.css'
 
 import { useState } from 'react'
 
+import { Link } from 'react-router-dom'
+
 
 const Signup = (props) => {
 
@@ -20,7 +22,7 @@ const Signup = (props) => {
     const [passwordInputWarning, setPasswordInputWarning] = useState(false);
 
     const setUserProfile = (event) => {
-        event.preventDefault();
+        //event.preventDefault();
 
         const stringValidator = (string, maxLength, type) => {
             if (type === 'email') {
@@ -58,8 +60,6 @@ const Signup = (props) => {
             const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
             const url = `${domain}/signup`
 
-            console.log(url)
-
             fetch(url, {
                 method: 'POST',
                 headers: {
@@ -69,7 +69,10 @@ const Signup = (props) => {
             })
                 .then(response => response.json())
                 .then((result) => {
-                    window.location.pathname = '/login'
+                    if (result === 'userExicted') {
+                        window.location.pathname = '/signup'
+                    }
+                    console.log(result === 'userExicted')
                 })
                 .catch(error => console.log(error))
         }
@@ -100,7 +103,7 @@ const Signup = (props) => {
 
     return (
         <div className={s.wrapper}>
-            <form action="" className={s.form_wrapper}>
+            <div action="" className={s.form_wrapper}>
                 <Title title="Create account" subtitle="Please enter your details" />
                 <div className='input_wrapper'>
                     <Input input_name="Login" value={loginInput}
@@ -113,8 +116,10 @@ const Signup = (props) => {
                         changeInput={changeInput} type="password" maxLength={12}
                         warning_text="Check your password" visibility={passwordInputWarning} />
                 </div>
-                <SubmitButton button_text="Sign Up" click={setUserProfile} />
-            </form>
+                <Link to="/login" className={s.submit_link} onClick={event => setUserProfile(event)}>
+                    <SubmitButton button_text="Sign Up" click={setUserProfile} />
+                </Link>
+            </div>
             <Footer text="You have an account? Log In" link="login" />
         </div>
     )

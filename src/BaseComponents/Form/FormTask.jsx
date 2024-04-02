@@ -128,7 +128,7 @@ const FormTask = (props) => {
         }
 
         const formValid = (titleValue !== '' || !isCreate)
-            && (timeStart < timeEnd && ((timeEnd !== '' && timeStart !== '') || !isCreate))
+            && ((timeStart < timeEnd || !isCreate) && ((timeEnd !== '' && timeStart !== '') || !isCreate))
             && ((dateValue >= today_date || !isCreate) && (dateValue !== '' || !isCreate))
             && (colorValue !== '' || !isCreate);
 
@@ -163,11 +163,12 @@ const FormTask = (props) => {
         if (schedules[dayKey[day]]) {
             sort = schedules[dayKey[day]].filter(element => filterArray(element, requestStart, requestEnd))
         }
+        console.log(task_info)
         const taskFilter = tasks.filter(element => {
-            return element.date === today && filterArray(element, requestStart, requestEnd)
+            return element.date === today && filterArray(element, requestStart, requestEnd) && element._id !== task_info.id
         })
-        console.log(schedules[dayKey[day]])
-        if ((sort.length === 0 || schedules[dayKey[day]].length === 0) && (taskFilter.length === 0 || tasks.length > 0)) {
+        console.log(taskFilter)
+        if ((sort.length === 0 || schedules[dayKey[day]].length === 0) && (taskFilter.length === 0 || tasks.length === 0)) {
             console.log('Free time')
             return true
         } else {
@@ -341,7 +342,7 @@ const FormTask = (props) => {
 
     return (
         <div className={s.wrapper} action="" method='POST' style={{
-            display: props.hide ? 'block' : 'none'
+            display: props.hide ? 'block' : 'none',
         }}>
             <h1 className="screen_title">{props.title}</h1>
 
