@@ -32,7 +32,7 @@ const FormTask = (props) => {
     const [colorValue, setColorValue] = useState('');
     const [colorWarning, setColorWarning] = useState(false)
 
-    const [taskDescription, setTaskDesciption] = useState('')
+    const [taskDescription, setTaskDesciption] = useState(props.type === 'edit' ? '' : '')
 
     const [subTaskView, setSubTaskView] = useState(false);
     const [subtasks, setSubtasks] = useState([]);
@@ -285,10 +285,9 @@ const FormTask = (props) => {
         }
 
     }
-
+    let task_info = JSON.parse(window.localStorage.getItem("task_info"))
     const editTask = () => {
         if (formValidator(false)) {
-            let task_info = JSON.parse(window.localStorage.getItem("task_info"))
             const dataSet = {
                 title: titleValue ? titleValue : task_info.title,
                 startTime: timeStart ? timeStart : task_info.startTime,
@@ -342,7 +341,7 @@ const FormTask = (props) => {
 
     return (
         <div className={s.wrapper} action="" method='POST' style={{
-            display: props.hide ? 'block' : 'none',
+            display: props.hide ? 'flex' : 'none',
         }}>
             <h1 className="screen_title">{props.title}</h1>
 

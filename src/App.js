@@ -15,8 +15,6 @@ import ScheduleInfo from './Schedule/Component/ScheduleInfo/ScheduleInfo';
 import s from './App.module.css'
 
 
-
-
 function App() {
 
   if (window.location.pathname === '/') {

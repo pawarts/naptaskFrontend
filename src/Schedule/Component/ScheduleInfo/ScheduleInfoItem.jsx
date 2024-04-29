@@ -22,10 +22,8 @@ const ScheduleInfoItem = (props) => {
 
         const copyObject = JSON.parse(JSON.stringify(scheduleBody));
         const dayArray = copyObject.scheduleBody[dayKey[props.day_number]]
-        const updateArray = index > 0 ? dayArray.splice(index, 1) : [];
-        copyObject.scheduleBody[dayKey[props.day_number]] = updateArray
 
-
+        dayArray.splice(index, 1)
         dispatch(setActiveSchedule(copyObject))
         /* props.deleteTask(props.day_number, scheduleBody)
 

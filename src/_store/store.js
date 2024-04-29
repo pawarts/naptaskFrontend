@@ -8,6 +8,7 @@ import viewReducer from "./slices/viewSlice"
 import freeTimeReducer from "./slices/freeTimeSlice"
 import taskFormReducer from './slices/taskFormSlice'
 import contextReducer from "./slices/contextSlice"
+import foundUserReducer from "./slices/foundUserSlice"
 
 export default configureStore({
     reducer: {
@@ -18,6 +19,7 @@ export default configureStore({
         view: viewReducer,
         freeTime: freeTimeReducer,
         taskForm: taskFormReducer,
-        context: contextReducer
+        context: contextReducer,
+        foundUser: foundUserReducer
     }
 })

@@ -19,7 +19,6 @@ const taskSlice = createSlice({
             const currentTime = new Date();
             let currentMonth = currentTime.getMonth() + 1;
             let currentDay = currentTime.getDate();
-            const currentYear = currentTime.getFullYear();
 
 
             if (currentMonth < 10) {
