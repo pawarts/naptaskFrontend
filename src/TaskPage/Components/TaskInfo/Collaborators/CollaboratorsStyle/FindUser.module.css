@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(100% - 49px);
+    margin-top: 180px;
+}
+
+.user_list_wrapper {
+    width: 273px;
+    height: calc(53px * 5);
+    margin-top: 30px;
+}
+
+.button_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 273px;
+}
+
+.submit_button {
+    color: #fff;
+    background: #1C1B1F;
+    padding: 6px 12px;
+    border-radius: 4px;
+}

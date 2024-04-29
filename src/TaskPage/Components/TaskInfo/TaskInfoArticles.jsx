@@ -20,6 +20,11 @@ const TaskInfoArticles = (props) => {
                 content: task_info.subtask
             }
             break
+        case 'collaborators':
+            taskData = {
+                title: 'Members',
+                content: task_info.collaborators
+            }
         default:
             console.log('Undefined')
     }
@@ -32,7 +37,7 @@ const TaskInfoArticles = (props) => {
     })
     return (
         <div className={s.wrapper} style={{
-            display: !props.editMenu ? 'block' : 'none'
+            display: !props.editMenu && (taskData.content != false || props.type === 'collaborators') ? 'block' : 'none'
         }}>
             <h4 className={`settings_title ${s.title}`}>{taskData.title}</h4>
             {content}

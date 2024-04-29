@@ -1,0 +1,26 @@
+.wrapper {
+    margin: 30px 0 0 20px;
+}
+
+.title {
+    margin-bottom: 12px;
+}
+
+.collaborators_item {
+    display: flex;
+}
+
+.user_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    width: 36px;
+    height: 36px;
+    background: #e6e6e6;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}

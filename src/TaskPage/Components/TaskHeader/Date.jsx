@@ -14,9 +14,11 @@ const DateText = (props) => {
 
 
 
-    return (<p className={`task_font grey ${s.task_font}`}>
-        {week_array[day]}, {month_array[month]} {number}
-    </p>)
+    return (
+        <p className={`task_font grey ${s.task_font}`}>
+            {week_array[day]}, {month_array[month]} {number}
+        </p>
+    )
 }
 
 export default DateText

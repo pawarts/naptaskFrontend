@@ -60,7 +60,6 @@ const Table = (props) => {
 
                 setDataToState(result.tasks)
 
-
                 loaded(true)
             })
             .catch(error => console.error('Error fetching data:', error));

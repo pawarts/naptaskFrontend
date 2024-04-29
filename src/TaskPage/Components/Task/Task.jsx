@@ -146,6 +146,7 @@ const Task = (props) => {
             endTime: timeEnd,
             color: color,
             taskDescription: task_element.taskDescription,
+            collaborators: task_element.collaborators,
             subtask: task_element.subtask,
             date: date
         }

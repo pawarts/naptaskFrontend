@@ -3,15 +3,21 @@ import EditTask from './EditTask'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import SubmitButton from '../../../BaseComponents/Buttons/SubmitButton'
 
+import Chat from './Chat/Chat'
+
 
 import s from './TaskInfoStyle/TaskInfo.module.css'
 
 import { useState } from 'react'
-import TaskInfoArticles from './TaskInfoArticles'
 import { useSelector } from "react-redux"
+
+import TaskInfoArticles from './TaskInfoArticles'
+import TaskInfoModeButton from './TaskInfoModeButton'
+import Collaborators from './Collaborators/CollaboratorsPage'
 
 const TaskInfo = (props) => {
     const busyViewer = useSelector(state => state.view.busyTimeView)
+    const active_mode = useSelector(state => state.view.taskInfoMode)
 
     const [contextMenu, setContextMenu] = useState(false);
     const [editMenu, setEditMenu] = useState(false);
@@ -70,23 +76,39 @@ const TaskInfo = (props) => {
                 maxHeight: busyViewer ? '100vh' : 'none',
                 overflowY: busyViewer ? 'hidden' : 'overflow'
             }}>
+
             <TaskTitle task_info={task_info} openContextMenu={openContextMenu} editMenu={editMenu} />
 
             <ContextMenu hide={contextMenu} id={task_info.id} openEditMenu={openEditMenu} />
 
             <EditTask hide={editMenu} id={task_info.id} />
 
-            <div className={s.task_details_wrapper}>
-                <TaskInfoArticles type="details" editMenu={editMenu} />
-                <TaskInfoArticles type="subtask" editMenu={editMenu} />
+            <div className={s.task_mode_wrapper}>
+                <TaskInfoModeButton button_text='Task info' />
+                <TaskInfoModeButton button_text='Chat' />
             </div>
-
-            <div className={s.done_wrapper} style={{
-                display: !editMenu ? 'inline-block' : 'none'
+            <div style={{
+                display: active_mode === 'Task info' ? 'block' : 'none'
             }}>
+                <div className={s.task_details_wrapper}>
+                    <TaskInfoArticles type="details" editMenu={editMenu} />
+                    <TaskInfoArticles type="subtask" editMenu={editMenu} />
+                    <Collaborators editMenu={editMenu} />
+                </div>
 
-                <SubmitButton button_text='Mark as done' click={doneTaskAction} />
+                <div className={s.done_wrapper} style={{
+                    display: !editMenu ? 'inline-block' : 'none'
+                }}>
+
+                    <SubmitButton button_text='Mark as done' click={doneTaskAction} />
+                </div>
             </div>
+            <div style={{
+                display: active_mode === 'Chat' ? 'block' : 'none'
+            }}>
+                <Chat />
+            </div>
+
         </div>
     )
 }
