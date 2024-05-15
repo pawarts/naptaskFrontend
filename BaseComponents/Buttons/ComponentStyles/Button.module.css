@@ -1,0 +1,16 @@
+.submit_button {
+    width: 100%;
+    color: #ffff;
+    margin-top: 100px;
+    padding: 9px 0 11px 0;
+    border-radius: 30px;
+}
+
+.small_submit_button{
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: #ffff;
+
+    font-size: 13px;
+    font-weight: 500;
+}

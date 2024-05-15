@@ -1,0 +1,118 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 273px;
+    min-height: calc(100vh - 20px);
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.back_link {
+    width: 100vw;
+    justify-content: flex-start;
+    margin: 20px 0 71px 20px;
+}
+
+
+.time_wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.date_wrapper {
+    margin: 36px 0;
+}
+
+.input_title_wrapper {
+    margin: 73px 0 67px 0;
+}
+
+.input_time {
+    font-size: 14px;
+}
+
+.color_group_choose {
+    display: flex;
+    justify-content: space-between;
+}
+
+.color_input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* Задати бажаний колір обрамлення та колір фону */
+    border: 2px solid #282828;
+    border-radius: 50%;
+    /* Зробити круглою */
+    width: 35px;
+    height: 35px;
+
+    border: none;
+}
+
+.taskDescription {
+    width: 249px;
+    height: 114px;
+    resize: none;
+
+    border: 1px solid #000;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 7px;
+}
+
+.taskDescriptionWrapper {
+    margin-top: 32px;
+}
+
+.input_title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.add_subtask_button {
+    display: flex;
+    align-items: center;
+}
+
+.add_subtask_button p {
+    margin-right: 20px;
+}
+
+.form_task_wrapper {
+    flex-direction: column;
+}
+
+.submit_button_wrapper {
+    margin-top: 20px;
+}
+
+.submit_button_wrapper .submit_button {
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-left: 50px;
+}
+
+input[type="radio"]:checked {
+    border: 3px solid #282828;
+}
+
+div {
+    min-height: 1px;
+}
+
+input[type="time"],
+input[type="date"] {
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid #9c9c9c;
+}
+
+input[type="time"] {
+    width: 110px;
+}
