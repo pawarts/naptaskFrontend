@@ -16,6 +16,8 @@ const SumbitCollaborators = (props) => {
 
         const { id, date, startTime, title } = JSON.parse(window.localStorage.getItem("task_info"));
 
+        console.log(id)
+
         const dataSet = {
             login: selectedUser.map(user => user.login),
             task_info: { date, startTime, title },
@@ -23,8 +25,8 @@ const SumbitCollaborators = (props) => {
             task_id: id,
         };
 
-        const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
-        /*fetch(`${domain}/sendInvite`, {
+        /*const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
+        fetch(`${domain}/sendInvite`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json', // Вказати тип відправленого контенту
