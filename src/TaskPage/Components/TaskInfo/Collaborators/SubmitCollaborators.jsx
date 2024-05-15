@@ -3,19 +3,28 @@ import { setAddCollaborator } from "../../../../_store/slices/viewSlice"
 import s from './CollaboratorsStyle/FindUser.module.css'
 import FoundUser from "./FoundUser"
 
+import { io } from "socket.io-client"
+
+const socket = io('localhost:10000')
+
 const SumbitCollaborators = (props) => {
     const dispatch = useDispatch()
     const selectedUser = useSelector(state => state.foundUser.selectedUser)
 
     const sendNewCollaborators = () => {
 
-        const { id } = JSON.parse(window.localStorage.getItem("task_info"))
+        const { id, date, startTime, title } = JSON.parse(window.localStorage.getItem("task_info"));
 
-        const dataSet = { login: selectedUser.map(user => user.login), task_id: id };
+        const dataSet = {
+            login: selectedUser.map(user => user.login),
+            task_info: { date, startTime, title },
+            user_creator: localStorage.getItem('login'),
+            task_id: id,
+        };
 
         const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
-        fetch(`${domain}/updateCollaborators`, {
-            method: 'PUT',
+        /*fetch(`${domain}/sendInvite`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json', // Вказати тип відправленого контенту
             },
@@ -25,7 +34,9 @@ const SumbitCollaborators = (props) => {
             .then(result => {
                 dispatch(setAddCollaborator(false))
             })
-            .catch(error => console.error('Error fetching data:', error));
+            .catch(error => console.error('Error fetching data:', error));*/
+
+        socket.emit("send_invite", dataSet)
     }
 
     const user = selectedUser.map((element, index) => (

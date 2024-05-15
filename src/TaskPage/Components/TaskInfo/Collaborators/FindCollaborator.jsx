@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const FindCollaborator = (props) => {
 
+    const dispatch = useDispatch()
+
     const [users, setUser] = useState([]);
     const [searchUserInput, setUserSearchInput] = useState('');
 
@@ -31,12 +33,17 @@ const FindCollaborator = (props) => {
             })
                 .then(response => response.json())
                 .then(result => {
-                    setUser(result)
+                    setUser(result.filter(element => element.login !== window.localStorage.getItem('login')))
                 })
                 .catch(error => console.error('Error fetching data:', error));
         } else if (value === '') {
             setUser([])
         }
+    }
+
+    const closePage = () => { 
+        dispatch(setAddCollaborator(false))
+        setUserSearchInput('')
     }
 
     const found_user = users.map((element, index) => (
@@ -57,7 +64,7 @@ const FindCollaborator = (props) => {
                 </div>
             </div>
             <div className={s.button_wrapper}>
-                <button>Cancel</button>
+                <button onClick={closePage}>Cancel</button>
                 <button className={s.submit_button} onClick={props.next_page}>Check new members</button>
             </div>
         </div>

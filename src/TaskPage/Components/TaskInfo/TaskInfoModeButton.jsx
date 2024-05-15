@@ -6,7 +6,8 @@ import { setTaskInfoMode } from '../../../_store/slices/viewSlice';
 const TaskInfoModeButton = (props) => {
     const dispatch = useDispatch();
     const active_mode = useSelector(state => state.view.taskInfoMode)
-    const button_text = props.button_text
+    const button_text = props.button_text;
+
     const activeStyle = {
         boxShadow: '0 2px 2.4px rgba(0, 0, 0, 0.25)',
         color: '#1C1B1F',

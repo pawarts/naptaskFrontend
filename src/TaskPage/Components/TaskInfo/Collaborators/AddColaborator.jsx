@@ -30,10 +30,6 @@ const AddColaborartorForm = () => {
         }
     }
 
-
-    const sendNewCollaborators = () => { }
-
-
     return (
         <div className={s.wrapper} style={{ display: view ? 'flex' : 'none' }}>
 

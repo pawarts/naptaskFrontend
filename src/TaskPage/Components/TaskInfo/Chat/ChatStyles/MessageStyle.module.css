@@ -1,12 +1,13 @@
 .wrapper {
     display: flex;
+    align-items: center;
 }
 
 .message {
     padding: 10px 14px;
-    max-width: 230px;
-    margin: 20px;
-    background-color: #f0f0f0;
+    max-width: 45vw;
+    margin:  0 20px 5px 20px;
+    background-color: #e3e60e; /*f0f0f0*/
     border-radius: 6px;
 }
 

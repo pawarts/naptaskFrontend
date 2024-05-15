@@ -9,12 +9,13 @@ import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { addTask } from "../../../_store/slices/taskSlice"
 import { setSchedule, setScheduleBody, setFiltredSchedule } from "../../../_store/slices/scheduleSlice"
+import { setWarningWindow } from "../../../_store/slices/viewSlice";
 
 
 const Table = (props) => {
 
     const dispatch = useDispatch()
-    const loaded = props.loaded
+    const {loading} = props
     const currentDate = useSelector(state => state.date.date);
     const tasks = useSelector(state => state.tasks.tasks)
     const schedules = useSelector(state => state.schedules.schedules)
@@ -60,9 +61,14 @@ const Table = (props) => {
 
                 setDataToState(result.tasks)
 
-                loaded(true)
+                dispatch(setWarningWindow(false))
+                loading(true)
             })
-            .catch(error => console.error('Error fetching data:', error));
+            .catch(error => {
+                console.error('Error fetching data:', error)
+                dispatch(setWarningWindow(true))
+                loading(true)
+            });
 
         const scheduleDomain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
         fetch(`${scheduleDomain}/schedule?id=${localStorage.getItem('user_id')}`, {

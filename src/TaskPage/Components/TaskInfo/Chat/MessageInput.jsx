@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import send_icon from './ChatIcons/send.svg'
 
 import s from './ChatStyles/MessageInput.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { setEditMessageMode, setMessage, setMessageInput } from '../../../../_store/slices/chatSlice'
 
 const MessageInput = (props) => {
 
-    const [textareaValue, setTextareaValue] = useState('')
+    const dispatch = useDispatch()
+    const textareaValue = useSelector(state => state.chat.messageInput)
+    const editMessageMode = useSelector(state => state.chat.editMessageMode)
+    const messageBody = useSelector(state => state.chat.messageBody)
     const [sendButtonStatus, setSendButtonStatus] = useState(false)
 
     const { socket } = props
@@ -21,19 +26,38 @@ const MessageInput = (props) => {
             timestamp: new Date()
         }
 
+        if (editMessageMode) {
+            const message_id = '';
+            const copyMessage = {...messageBody}
+            copyMessage.message = textareaValue;
+            
+            const { _id } = messageBody;
+            socket.emit('edit_message', {
+                id, message_id: _id, message: copyMessage
+            })
+            dispatch(setEditMessageMode(false))
+        } else {
+            socket.emit('send_message', data_to_send)
+        }
 
-        socket.emit('send_message', data_to_send)
-
-        setTextareaValue('')
+        dispatch(setMessageInput(''))
         setSendButtonStatus(false)
     }
+
+    useEffect(() => {
+        if (textareaValue.length > 0) {
+            setSendButtonStatus(true)
+        } else if (textareaValue.length === 0) {
+            setSendButtonStatus(false)
+        }
+    }, [textareaValue])
 
     const changeHeight = (event) => {
         const element = event.currentTarget;
 
         const string_length = element.value.length
 
-        setTextareaValue(element.value)
+        dispatch(setMessageInput(element.value))
 
         setSendButtonStatus(true)
 
@@ -48,7 +72,7 @@ const MessageInput = (props) => {
         <div className={s.wrapper}>
             <textarea className={`${s.message_input}`}
                 name="" id="" onInput={(event) => { changeHeight(event) }}
-                placeholder='Write your message' value={textareaValue}></textarea>
+                placeholder='Write your message' value={textareaValue} maxLength={1000}></textarea>
 
 
             <button className={s.send_button} style={{

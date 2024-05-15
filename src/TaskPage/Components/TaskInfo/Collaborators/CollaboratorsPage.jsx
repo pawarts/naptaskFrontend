@@ -12,14 +12,15 @@ const Collaborators = (props) => {
 
     const dispatch = useDispatch()
 
-    const collaborators = JSON.parse(window.localStorage.getItem("task_info")).collaborators
+    const user_login = localStorage.getItem("login")
+    const collaborators = JSON.parse(window.localStorage.getItem("task_info")).collaborators.filter(element => element !== user_login)
     const [addMember, setAddMember] = useState(false)
 
     const addNewCollaboratorPage = () => { dispatch(setAddCollaborator(true)) }
 
     const collaborator = collaborators.map((element, index) => (
         <div key={index}>
-            <CollaboratorItem element={element} />
+            <CollaboratorItem login={element} />
         </div>
     ));
     return (
@@ -29,7 +30,7 @@ const Collaborators = (props) => {
             <h4 className={`settings_title ${s.title}`}>Members</h4>
             <div className={s.collaborators_item}>
                 {collaborator}
-                <CollaboratorItem user_icon={AddMemberIcon} action={addNewCollaboratorPage} />
+                <CollaboratorItem user_icon={AddMemberIcon} login='Add user' action={addNewCollaboratorPage} />
             </div>
 
             <AddColaborartorForm />

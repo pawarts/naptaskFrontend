@@ -18,6 +18,7 @@ import Collaborators from './Collaborators/CollaboratorsPage'
 const TaskInfo = (props) => {
     const busyViewer = useSelector(state => state.view.busyTimeView)
     const active_mode = useSelector(state => state.view.taskInfoMode)
+    const editMessageMode = useSelector(state => state.chat.editMessageMode)
 
     const [contextMenu, setContextMenu] = useState(false);
     const [editMenu, setEditMenu] = useState(false);
@@ -63,8 +64,6 @@ const TaskInfo = (props) => {
         })
             .then(response => response.text())
             .then(() => {
-
-
                 window.location.pathname = '/task'
             })
             .catch(error => console.log(error))
@@ -83,7 +82,9 @@ const TaskInfo = (props) => {
 
             <EditTask hide={editMenu} id={task_info.id} />
 
-            <div className={s.task_mode_wrapper}>
+            <div className={s.task_mode_wrapper} style={{
+                display: task_info.collaborators.length > 1 && !editMenu && !editMessageMode? 'flex' : 'none'
+            }}>
                 <TaskInfoModeButton button_text='Task info' />
                 <TaskInfoModeButton button_text='Chat' />
             </div>

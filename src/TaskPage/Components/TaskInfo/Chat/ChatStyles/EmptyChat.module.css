@@ -1,0 +1,15 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 370px);
+}
+
+.task_font{
+    margin: 10px 0 46px 0;
+}
+
+.say_hi_button{
+    cursor: pointer;
+}

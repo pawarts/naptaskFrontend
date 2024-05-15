@@ -1,0 +1,21 @@
+.wrapper{
+    display: flex;
+    justify-content: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+
+    width: 100vw;
+    height: 25px;
+
+    background: #bedbbc;
+
+    padding: 10px 0;
+}
+
+.mode_title{
+    font-weight: 500;
+    margin-right: 50px;
+}

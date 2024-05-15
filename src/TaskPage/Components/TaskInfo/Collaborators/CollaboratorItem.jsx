@@ -2,13 +2,12 @@ import s from './CollaboratorsStyle/CollaboratorsStyle.module.css';
 
 
 const CollaboratorItem = (props) => {
-    const login = props.element
-    const user_icon = () => {
-        return props.user_icon ? <img src={props.user_icon} className={s.user_icon} alt="" /> : <p className={s.user_icon}>{login[0]}</p>
-    }
+    const {login, user_icon} = props;
+    
     return (
-        <div onClick={props.action}>
-            {user_icon()}
+        <div onClick={props.action} className={s.user_item}>
+            {user_icon ? <img src={user_icon} className={s.user_icon} alt="" /> : <p className={s.user_icon}></p>}
+            <p className='settings_title'>{login}</p>
         </div>
     )
 };
