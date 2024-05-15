@@ -5,7 +5,8 @@ import FoundUser from "./FoundUser"
 
 import { io } from "socket.io-client"
 
-const socket = io('localhost:10000')
+const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
+const socket = io(domain)
 
 const SumbitCollaborators = (props) => {
     const dispatch = useDispatch()
