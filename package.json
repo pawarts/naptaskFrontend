@@ -47,7 +47,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:10000",
+  "proxy": "https://naptask-back.onrender.com",
   "devServer": {
     "compress": true,
     "disableHostCheck": true
