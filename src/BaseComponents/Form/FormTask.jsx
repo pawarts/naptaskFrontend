@@ -280,7 +280,7 @@ const FormTask = (props) => {
 
             const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
             const url = '/task/add'
-            /*             fetch(`${domain}${url}`, {
+            fetch(`${domain}${url}`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json', // Вказати тип відправленого контенту
@@ -291,12 +291,12 @@ const FormTask = (props) => {
                             .then(result => {
                                 window.location.pathname = '/task'
                             })
-                            .catch(error => console.log(error)) */
-            Request(url, {
+                            .catch(error => console.log(error))
+            /*Request(url, {
                 headers: {
                     'Content-Type': 'application/json', // Вказати тип відправленого контенту
                 },
-            }, "JSON", dataSet, () => { window.location.pathname = '/task' }, "POST")
+            }, "JSON", dataSet, () => { window.location.pathname = '/task' }, "POST")*/
         }
 
     }
