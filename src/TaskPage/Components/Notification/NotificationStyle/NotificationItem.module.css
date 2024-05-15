@@ -1,0 +1,17 @@
+.wrapper{
+    margin: 0 20px;
+}
+
+.task_invite{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task_list{
+    max-width: 185px;
+}
+
+.message_wrapper{
+    margin-bottom: 30px;
+}

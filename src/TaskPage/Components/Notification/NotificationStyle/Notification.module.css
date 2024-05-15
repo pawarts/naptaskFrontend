@@ -1,0 +1,25 @@
+.wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 10000;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: #fff;
+}
+
+.wrapper h1 {
+    text-align: left;
+    max-width: 286px;
+
+    margin: 50px 0 60px 20px;
+}
+
+.close_btn{
+    display: flex;
+    justify-content: end;
+    margin: 20px 20px 0 0;
+}

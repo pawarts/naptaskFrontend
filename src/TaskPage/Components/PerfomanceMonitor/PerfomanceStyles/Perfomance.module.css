@@ -1,6 +1,5 @@
 .header_wrapper {
-    width: calc(100vw - 20px);
-    margin-left: 20px;
+    width: calc(100vw - 60px);
     margin-top: 23px;
 }
 
