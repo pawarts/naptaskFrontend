@@ -11,7 +11,6 @@ import SomthingWentWrong from "../BaseComponents/WarningWindows/SomthingWentWron
 
 
 const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
-console.log(domain)
 const socket = io(domain)
 
 
