@@ -59,7 +59,6 @@ const Table = (props) => {
             .then(response => response.json())
             .then(result => {
 
-                console.log(result)
                 setDataToState(result.tasks)
 
                 dispatch(setWarningWindow(false))
