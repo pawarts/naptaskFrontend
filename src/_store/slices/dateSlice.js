@@ -5,7 +5,9 @@ const dateSlice = createSlice({
     initialState: {
         date: new Date().toISOString(),
         day: `${new Date().getDay()}`,
-        dayShortForm: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+        dayShortForm: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+        monthShortForm: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
     },
     reducers: {
         nextDay(state, action) {

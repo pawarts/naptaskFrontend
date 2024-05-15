@@ -9,6 +9,8 @@ import freeTimeReducer from "./slices/freeTimeSlice"
 import taskFormReducer from './slices/taskFormSlice'
 import contextReducer from "./slices/contextSlice"
 import foundUserReducer from "./slices/foundUserSlice"
+import notificationReducer from "./slices/notificationSlice"
+import chatReducer from './slices/chatSlice'
 
 export default configureStore({
     reducer: {
@@ -20,6 +22,8 @@ export default configureStore({
         freeTime: freeTimeReducer,
         taskForm: taskFormReducer,
         context: contextReducer,
-        foundUser: foundUserReducer
+        foundUser: foundUserReducer,
+        notification: notificationReducer,
+        chat: chatReducer
     }
 })

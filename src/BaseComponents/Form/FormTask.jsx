@@ -15,6 +15,7 @@ import { setTimeEnd, setTimeStart } from '../../_store/slices/taskFormSlice'
 
 import { getWeek } from 'date-fns';
 import { testFun } from '../../_store/slices/dateSlice'
+import { Request } from '../BaseFunctions/FetchRequest'
 
 
 const FormTask = (props) => {
@@ -163,93 +164,97 @@ const FormTask = (props) => {
         if (schedules[dayKey[day]]) {
             sort = schedules[dayKey[day]].filter(element => filterArray(element, requestStart, requestEnd))
         }
-        console.log(task_info)
+        console.log(sort)
         const taskFilter = tasks.filter(element => {
             return element.date === today && filterArray(element, requestStart, requestEnd) && element._id !== task_info.id
         })
-        console.log(taskFilter)
-        if ((sort.length === 0 || schedules[dayKey[day]].length === 0) && (taskFilter.length === 0 || tasks.length === 0)) {
-            console.log('Free time')
-            return true
-        } else {
-            console.log("i'm busy at that time please, check my schedule")
+        console.log(typeof sort == "string")
+        if (typeof sort !== 'string') {
+            if ((sort.length === 0 || schedules[dayKey[day]].length === 0) && (taskFilter.length === 0 || tasks.length === 0)) {
+                console.log('Free time')
+                return true
+            } else {
+                console.log("i'm busy at that time please, check my schedule")
 
-            const date = dateValue
-            const day = new Date(date).getDay()
+                const date = dateValue
+                const day = new Date(date).getDay()
 
-            const dateStart = new Date(`2024-03-11T${requestStart}`)
-            const dateEnd = new Date(`2024-03-11T${requestEnd}`)
+                const dateStart = new Date(`2024-03-11T${requestStart}`)
+                const dateEnd = new Date(`2024-03-11T${requestEnd}`)
 
-            const requestGap = (dateEnd - dateStart) / 60000;
+                const requestGap = (dateEnd - dateStart) / 60000;
 
-            dispatch(setTimeGap(requestGap))
+                dispatch(setTimeGap(requestGap))
 
-            const todayTask = tasks.filter(element => element.date === date);
-            if (schedules != [] && schedules[dayKey[day]] !== undefined) {
-                schedules[dayKey[day]].forEach(element => {
-                    todayTask.push(element)
-                });
+                const todayTask = tasks.filter(element => element.date === date);
+                if (schedules != [] && schedules[dayKey[day]] !== undefined) {
+                    schedules[dayKey[day]].forEach(element => {
+                        todayTask.push(element)
+                    });
 
-                todayTask.sort((a, b) => {
-                    const timeStartA = a.startTime || a.timeStart
-                    const timeStartB = b.startTime || b.timeStart
+                    todayTask.sort((a, b) => {
+                        const timeStartA = a.startTime || a.timeStart
+                        const timeStartB = b.startTime || b.timeStart
 
-                    if (timeStartA > timeStartB) {
-                        return 1
-                    } else if (timeStartA < timeStartB) {
-                        return 0
-                    } else {
-                        return -1
-                    }
-                })
-
-                //console.log(todayTask)
-
-                const todayTaskMap = todayTask.map((element, index) => {
-                    const prevTask = index > 0 ? todayTask[index - 1] : element;
-
-                    if (index > 0 && index !== todayTask.length - 1) {
-                        if (date === element.date || element.date === undefined) {
-                            return {
-                                timeStart: prevTask.timeEnd || prevTask.endTime,
-                                timeEnd: element.timeStart || element.startTime
-                            }
+                        if (timeStartA > timeStartB) {
+                            return 1
+                        } else if (timeStartA < timeStartB) {
+                            return 0
                         } else {
-                            return null
+                            return -1
                         }
-                    } else if (index === 0) {
-                        return {
-                            timeStart: '07:00',
-                            timeEnd: element.timeStart || element.startTime
-                        }
-                    } else if (index === todayTask.length - 1) {
-                        return [
-                            {
-                                timeStart: prevTask.timeEnd || prevTask.endTime,
-                                timeEnd: element.timeStart || element.startTime
-                            },
-                            {
-                                timeStart: element.timeEnd || element.endTime,
-                                timeEnd: '22:00'
+                    })
+
+                    //console.log(todayTask)
+
+                    const todayTaskMap = todayTask.map((element, index) => {
+                        const prevTask = index > 0 ? todayTask[index - 1] : element;
+
+                        if (index > 0 && index !== todayTask.length - 1) {
+                            if (date === element.date || element.date === undefined) {
+                                return {
+                                    timeStart: prevTask.timeEnd || prevTask.endTime,
+                                    timeEnd: element.timeStart || element.startTime
+                                }
+                            } else {
+                                return null
                             }
-                        ]
-                    }
+                        } else if (index === 0) {
+                            return {
+                                timeStart: '07:00',
+                                timeEnd: element.timeStart || element.startTime
+                            }
+                        } else if (index === todayTask.length - 1) {
+                            return [
+                                {
+                                    timeStart: prevTask.timeEnd || prevTask.endTime,
+                                    timeEnd: element.timeStart || element.startTime
+                                },
+                                {
+                                    timeStart: element.timeEnd || element.endTime,
+                                    timeEnd: '22:00'
+                                }
+                            ]
+                        }
 
-                    return null
+                        return null
 
-                }).flat().filter(element => {
-                    const timeStart = new Date(`2024-03-12T${element.timeStart}`);
-                    const timeEnd = new Date(`2024-03-12T${element.timeEnd}`);
+                    }).flat().filter(element => {
+                        const timeStart = new Date(`2024-03-12T${element.timeStart}`);
+                        const timeEnd = new Date(`2024-03-12T${element.timeEnd}`);
 
-                    const timeGap = (timeEnd - timeStart) / 60000
+                        const timeGap = (timeEnd - timeStart) / 60000
 
-                    return element !== null && timeGap >= requestGap
-                })
+                        return element !== null && timeGap >= requestGap
+                    })
 
-                dispatch(setFreeTime(todayTaskMap))
+                    dispatch(setFreeTime(todayTaskMap))
+                }
+                dispatch(busyTimeChange(true))
+
+                return false
             }
-            dispatch(busyTimeChange(true))
-
+        } else {
             return false
         }
     }
@@ -257,6 +262,9 @@ const FormTask = (props) => {
     const createTask = () => {
 
         if (formValidator(true)) {
+
+            const login = localStorage.getItem('login');
+
             const dataSet = {
                 title: titleValue,
                 startTime: timeStart,
@@ -264,24 +272,31 @@ const FormTask = (props) => {
                 date: dateValue,
                 color: colorValue,
                 taskDescription: taskDescription,
+                collaborators: [login],
                 subtask: subtasks,
+                creator: login,
                 user_id: localStorage.getItem('user_id')
             }
 
             const domain = process.env.REACT_APP_DOMAIN_NAME || 'http://localhost:10000'
             const url = '/task/add'
-            fetch(`${domain}${url}`, {
-                method: 'POST',
+            /*             fetch(`${domain}${url}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json', // Вказати тип відправленого контенту
+                            },
+                            body: JSON.stringify(dataSet)
+                        })
+                            .then(response => response.json())
+                            .then(result => {
+                                window.location.pathname = '/task'
+                            })
+                            .catch(error => console.log(error)) */
+            Request(url, {
                 headers: {
                     'Content-Type': 'application/json', // Вказати тип відправленого контенту
                 },
-                body: JSON.stringify(dataSet)
-            })
-                .then(response => response.json())
-                .then(result => {
-                    window.location.pathname = '/task'
-                })
-                .catch(error => console.log(error))
+            }, "JSON", dataSet, () => { window.location.pathname = '/task' }, "POST")
         }
 
     }
@@ -294,6 +309,7 @@ const FormTask = (props) => {
                 endTime: timeEnd ? timeEnd : task_info.endTime,
                 date: dateValue ? dateValue : task_info.date,
                 taskDescription: taskDescription || task_info.taskDescription,
+                subtask: subtasks,
                 color: colorValue ? colorValue : task_info.color,
                 user_id: localStorage.getItem('user_id')
             }
