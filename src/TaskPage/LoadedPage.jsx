@@ -5,23 +5,34 @@ import Perfomance from "./Components/PerfomanceMonitor/Perfomance"
 import WorkInProgress from "./WarningWorkInProgress/WorkInProgress"
 
 import { Link } from "react-router-dom"
-import { useState } from "react"
 
 import s from './Task.module.css'
 import add_task_button from './TaskIcons/AddTaskButton.svg'
-import { useSelector } from "react-redux"
+
+import notificationIcon from './Components/Notification/NotificationIcon/Notifications.svg'
+
+import { useDispatch } from "react-redux"
+import { setNotification } from "../_store/slices/viewSlice"
 
 const LoadedPage = (props) => {
 
-    const loaded = props.loaded
+    const { loading } = props
+
+    const dispatch = useDispatch()
+
+    const openNotificationWindow = () => { dispatch(setNotification(true)) }
 
     return (
         <div className={s.wrapper} >
             <WorkInProgress />
-            <Perfomance />
+            <div className={s.header}>
+                <Perfomance />
+
+                <button onClick={openNotificationWindow}><img src={notificationIcon} alt="" /></button>
+            </div>
             <div className={s.schedule_wrapper} >
                 <TaskHeader />
-                <Table loaded={loaded} />
+                <Table loading={loading} />     
             </div>
             <Navigation />
 

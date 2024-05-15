@@ -9,6 +9,10 @@
     margin-bottom: 0;
 }
 
+.header{
+    display: flex;
+}
+
 .add_task_button {
     position: absolute;
     z-index: 3000;
