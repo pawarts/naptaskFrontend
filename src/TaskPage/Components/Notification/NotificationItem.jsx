@@ -5,15 +5,15 @@ import s from './NotificationStyle/NotificationItem.module.css'
 
 const NotificationItem = (props) => {
 
-    const { id, type, title, date, startTime, user_creator } = props.element;
+    const { id, type, title, task_id, date, startTime, user_creator } = props.element;
     const login = window.localStorage.getItem('login')
-    const task_id = JSON.parse(localStorage.getItem('task_info')).id;
+    //const task_id = JSON.parse(localStorage.getItem('task_info')).id;
 
     const day = new Date(date)
 
     const month = useSelector(state => state.date.monthShortForm)
 
-
+    //console.log(_id)
 
     const typeMessage = () => {
         if (type === 'invite') {

@@ -37,6 +37,8 @@ const Notification = (props) => {
 
     }, [socket])
 
+    //console.log(notificationArray)
+
     const notificationItem = notificationArray.map((element, index) => (
         <div key={index}>
             <NotificationItem element={element} />
