@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addTask } from '../_store/slices/taskSlice'
 
 import Navigation from '../BaseComponents/Navigation/Navigation'
-import s from './Profile.module.css'
+import s from './ProfileStyles/Profile.module.css'
 import { exitUser } from '../_store/slices/authSlice'
 import { useState } from 'react'
+import Account from './Account'
 
 const Profile = (props) => {
     const dispatch = useDispatch()
@@ -25,7 +26,8 @@ const Profile = (props) => {
         const file = event.target.files[0];
         const reader = new FileReader()
 
-        reader.readAsText(file)
+        reader
+            .readAsText(file)
 
         reader.onload = function () {
             setImg(reader.result)
@@ -37,11 +39,15 @@ const Profile = (props) => {
     return (
         <div className={s.wrapper}>
             <h1 className="screen_title">Settings</h1>
-            <div className={s.settings_block}>
-                <h3 className='settings_title'>Account</h3>
+            <div>
+                <div className={s.settings_block}>
+                    <Account />
+                </div>
+                <div className={s.settings_block}>
+                    <Account />
+                </div>
             </div>
             <img src={img} alt="" />
-            <input type="file" onChange={event => downloadFile(event)} />
 
             <Link to='' onClick={event => exitFucntion(event)}>Exit</Link>
             <Navigation />

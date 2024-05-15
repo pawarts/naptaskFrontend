@@ -116,7 +116,7 @@ const Signup = (props) => {
                         changeInput={changeInput} type="password" maxLength={12}
                         warning_text="Check your password" visibility={passwordInputWarning} />
                 </div>
-                <Link to="/login" className={s.submit_link} onClick={event => setUserProfile(event)}>
+                <Link to="/login" className={s.submit_link}>
                     <SubmitButton button_text="Sign Up" click={setUserProfile} />
                 </Link>
             </div>
